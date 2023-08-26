@@ -1,0 +1,15 @@
+# python secondary files:
+__pycache__
+*/__pycache__/*
+*.pyc
+
+
+# eclipse files:
+/eclipseWorkspace/*
+/System/.project
+/System/.pydevproject
+
+
+/userFiles/*
+
+

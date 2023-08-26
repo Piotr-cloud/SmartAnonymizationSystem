@@ -1,0 +1,924 @@
+Processing method: SEQUANTIAL
+
+
+Specific params:
+
+Input files:         /home/piotr/ProjektMagisterski/Implementacja/userFiles/inputs/Cars.jpg, /home/piotr/ProjektMagisterski/Implementacja/userFiles/inputs/Family.jpg, /home/piotr/ProjektMagisterski/Implementacja/userFiles/inputs/People.mp4
+Number of images:    2
+Number of videos:    1
+Output directory:    /home/piotr/ProjektMagisterski/Implementacja/userFiles/outputs
+
+Workers chosen by user:
+
+Face Detector:               Dnn_Cls(configFile=Name: "Configuration file"; Description: "Dnn configuration file. Mostly named deploy.prototxt"; Default value: System/NonPythonFiles/WorkersFiles/Detectors/Dnn/Models/deploy.prototxt; Value type: str, modelFile=Name: "Model file"; Description: "Dnn model file"; Default value: System/NonPythonFiles/WorkersFiles/Detectors/Dnn/Models/sr6033/res10_300x300_ssd_iter_140000.caffemodel; Value type: str, confidenceTreshold=Name: "Confidence threshold"; Description: "Detection confidence threshold; Confidence is expected as 3-rd value in a row"; Default value: 0.5; Value type: float; Range <0.0001, 1.0>)
+License plate Detector:      Wpod_Net_Cls(wpod_net_path=Name: "Model file"; Description: "Model file path"; Default value: System/NonPythonFiles/WorkersFiles/Detectors/WpodNet/wpod-net.json; Value type: str)
+Face Tracker:                DeepSort_Cls(weights_path=Name: "Weights file"; Description: "Path to weights file"; Default value: System/NonPythonFiles/WorkersFiles/Trackers/DeepSort/resources/networks/mars-small128.pb; Value type: str, max_iou_distance=Name: "Max iou distance"; Description: "Distance of IOU used to associate unmatched tracks together with unconfirmed tracks"; Default value: 0.2; Value type: float; Range <0.001, 1.0>, max_age=Name: "Max age"; Description: "Maximum number of missed misses before a track is deleted"; Default value: 30; Value type: int; Range <0, 1000>, n_init=Name: "No. of init frames"; Description: "Number of frames that a track remains in initialization phase"; Default value: 30; Value type: int; Range <0, 1000>, stabilization_flag=Name: "Use embedded stabilization?"; Description: "Deep sort stabilization can be enabled here"; Default value: False; Value type: bool)
+License plate Tracker:       -
+Face Anonymizer:             CustomAnonymizer_Cls(contentGenerator=ThisPersonDoesNotExist_Cls(Online generation, Preprocessing detector), contentSwapper=FaceSmartSwapper_Wuhuikai_Cls(Additional context of area [%]))
+License plate Anonymizer:    CustomAnonymizer_Cls(contentGenerator=Platesmania_Cls(Plate recognizer, Keep original starting letters, Apply shortest Levenshtein distance), contentSwapper=CloneSwapper_Cls())
+
+2023-08-26 15:17:59.3594940:  Starting system execution
+2023-08-26 15:17:59.3601232:  Constructing workers
+2023-08-26 15:18:02.9297948:  Workers constructed
+2023-08-26 15:18:02.9299421:  Preparing workers
+2023-08-26 15:18:02.9300714:  Preparing: StyleGAN - results  (Face)
+2023-08-26 15:18:02.9486706:  Prepared: StyleGAN - results  (Face)
+2023-08-26 15:18:02.9488570:  Preparing: PlatesMania  (License plate)
+2023-08-26 15:18:02.9676707:  Prepared: PlatesMania  (License plate)
+2023-08-26 15:18:02.9678252:  Workers prepared
+2023-08-26 15:18:03.0110054:  Processing:  Cars.jpg
+2023-08-26 15:18:03.0111878:  Frame processing:  Cars.jpg
+2023-08-26 15:18:03.0112920:  Detecting:         Cars.jpg
+2023-08-26 15:18:03.0113980:  Detecting/Dnn:     Cars.jpg
+2023-08-26 15:18:03.1206892:  Detected/Dnn:      Cars.jpg
+2023-08-26 15:18:03.1208868:  Detecting/WpodNet:  Cars.jpg
+2023-08-26 15:18:04.2716820:  Detected/WpodNet:   Cars.jpg
+2023-08-26 15:18:04.2718832:  Detected:           Cars.jpg
+2023-08-26 15:18:04.2719920:  Frame processed:    Cars.jpg
+2023-08-26 15:18:04.2721128:  Frame processing:   Cars.jpg
+2023-08-26 15:18:04.2722104:  Modifing:           Cars.jpg
+2023-08-26 15:18:04.2723408:  Anonymizing/Custom anonymizer:  Cars.jpg
+2023-08-26 15:18:04.9736602:  Anonymized/Custom anonymizer:   Cars.jpg
+2023-08-26 15:18:04.9738250:  Modified:                       Cars.jpg
+2023-08-26 15:18:04.9739210:  Frame processed:                Cars.jpg
+2023-08-26 15:18:05.0171647:  Processed:                      Cars.jpg
+2023-08-26 15:18:05.0378773:  Processing:                     Family.jpg
+2023-08-26 15:18:05.0380423:  Frame processing:               Family.jpg
+2023-08-26 15:18:05.0381374:  Detecting:                      Family.jpg
+2023-08-26 15:18:05.0382430:  Detecting/Dnn:                  Family.jpg
+2023-08-26 15:18:05.1036777:  Detected/Dnn:                   Family.jpg
+2023-08-26 15:18:05.1038508:  Detecting/WpodNet:              Family.jpg
+2023-08-26 15:18:05.8896880:  Detected/WpodNet:               Family.jpg
+2023-08-26 15:18:05.8899174:  Detected:                       Family.jpg
+2023-08-26 15:18:05.8900251:  Frame processed:                Family.jpg
+2023-08-26 15:18:05.8901339:  Frame processing:               Family.jpg
+2023-08-26 15:18:05.8902466:  Modifing:                       Family.jpg
+2023-08-26 15:18:05.8903970:  Anonymizing/Custom anonymizer:  Family.jpg
+2023-08-26 15:18:14.4576838:  Anonymized/Custom anonymizer:   Family.jpg
+2023-08-26 15:18:14.4578555:  Modified:                       Family.jpg
+2023-08-26 15:18:14.4579816:  Frame processed:                Family.jpg
+2023-08-26 15:18:14.4936150:  Processed:                      Family.jpg
+2023-08-26 15:18:14.4938060:  Processing:                     People.mp4
+2023-08-26 15:18:14.4939117:  Detecting:                      People.mp4
+2023-08-26 15:18:14.5608177:  Frame processing:               People.mp4 (Frame: 0)
+2023-08-26 15:18:14.5610602:  Detecting:                      People.mp4 (Frame: 0)
+2023-08-26 15:18:14.5611894:  Detecting/Dnn:                  People.mp4 (Frame: 0)
+2023-08-26 15:18:14.6296868:  Detected/Dnn:                   People.mp4 (Frame: 0)
+2023-08-26 15:18:14.6298814:  Detecting/WpodNet:              People.mp4 (Frame: 0)
+2023-08-26 15:18:14.9176870:  Detected/WpodNet:               People.mp4 (Frame: 0)
+2023-08-26 15:18:14.9179227:  Detected:                       People.mp4 (Frame: 0)
+2023-08-26 15:18:14.9180233:  Frame processed:                People.mp4 (Frame: 0)
+2023-08-26 15:18:14.9666984:  Frame processing:               People.mp4 (Frame: 1)
+2023-08-26 15:18:14.9668922:  Detecting:                      People.mp4 (Frame: 1)
+2023-08-26 15:18:14.9670603:  Detecting/Dnn:                  People.mp4 (Frame: 1)
+2023-08-26 15:18:15.0406847:  Detected/Dnn:                   People.mp4 (Frame: 1)
+2023-08-26 15:18:15.0408685:  Detecting/WpodNet:              People.mp4 (Frame: 1)
+2023-08-26 15:18:15.3146467:  Detected/WpodNet:               People.mp4 (Frame: 1)
+2023-08-26 15:18:15.3148880:  Detected:                       People.mp4 (Frame: 1)
+2023-08-26 15:18:15.3149889:  Frame processed:                People.mp4 (Frame: 1)
+2023-08-26 15:18:15.3650813:  Frame processing:               People.mp4 (Frame: 2)
+2023-08-26 15:18:15.3652537:  Detecting:                      People.mp4 (Frame: 2)
+2023-08-26 15:18:15.3653612:  Detecting/Dnn:                  People.mp4 (Frame: 2)
+2023-08-26 15:18:15.4356816:  Detected/Dnn:                   People.mp4 (Frame: 2)
+2023-08-26 15:18:15.4358670:  Detecting/WpodNet:              People.mp4 (Frame: 2)
+2023-08-26 15:18:15.7036860:  Detected/WpodNet:               People.mp4 (Frame: 2)
+2023-08-26 15:18:15.7039375:  Detected:                       People.mp4 (Frame: 2)
+2023-08-26 15:18:15.7040522:  Frame processed:                People.mp4 (Frame: 2)
+2023-08-26 15:18:15.7589310:  Frame processing:               People.mp4 (Frame: 3)
+2023-08-26 15:18:15.7591028:  Detecting:                      People.mp4 (Frame: 3)
+2023-08-26 15:18:15.7592125:  Detecting/Dnn:                  People.mp4 (Frame: 3)
+2023-08-26 15:18:15.8296850:  Detected/Dnn:                   People.mp4 (Frame: 3)
+2023-08-26 15:18:15.8298626:  Detecting/WpodNet:              People.mp4 (Frame: 3)
+2023-08-26 15:18:16.0906825:  Detected/WpodNet:               People.mp4 (Frame: 3)
+2023-08-26 15:18:16.0909140:  Detected:                       People.mp4 (Frame: 3)
+2023-08-26 15:18:16.0910130:  Frame processed:                People.mp4 (Frame: 3)
+2023-08-26 15:18:16.1438680:  Frame processing:               People.mp4 (Frame: 4)
+2023-08-26 15:18:16.1440701:  Detecting:                      People.mp4 (Frame: 4)
+2023-08-26 15:18:16.1442318:  Detecting/Dnn:                  People.mp4 (Frame: 4)
+2023-08-26 15:18:16.2196872:  Detected/Dnn:                   People.mp4 (Frame: 4)
+2023-08-26 15:18:16.2198665:  Detecting/WpodNet:              People.mp4 (Frame: 4)
+2023-08-26 15:18:16.4836836:  Detected/WpodNet:               People.mp4 (Frame: 4)
+2023-08-26 15:18:16.4839218:  Detected:                       People.mp4 (Frame: 4)
+2023-08-26 15:18:16.4840357:  Frame processed:                People.mp4 (Frame: 4)
+2023-08-26 15:18:16.5364451:  Frame processing:               People.mp4 (Frame: 5)
+2023-08-26 15:18:16.5366140:  Detecting:                      People.mp4 (Frame: 5)
+2023-08-26 15:18:16.5367510:  Detecting/Dnn:                  People.mp4 (Frame: 5)
+2023-08-26 15:18:16.6096954:  Detected/Dnn:                   People.mp4 (Frame: 5)
+2023-08-26 15:18:16.6098733:  Detecting/WpodNet:              People.mp4 (Frame: 5)
+2023-08-26 15:18:16.8756833:  Detected/WpodNet:               People.mp4 (Frame: 5)
+2023-08-26 15:18:16.8759222:  Detected:                       People.mp4 (Frame: 5)
+2023-08-26 15:18:16.8760364:  Frame processed:                People.mp4 (Frame: 5)
+2023-08-26 15:18:16.9283550:  Frame processing:               People.mp4 (Frame: 6)
+2023-08-26 15:18:16.9285262:  Detecting:                      People.mp4 (Frame: 6)
+2023-08-26 15:18:16.9286350:  Detecting/Dnn:                  People.mp4 (Frame: 6)
+2023-08-26 15:18:17.0036774:  Detected/Dnn:                   People.mp4 (Frame: 6)
+2023-08-26 15:18:17.0038526:  Detecting/WpodNet:              People.mp4 (Frame: 6)
+2023-08-26 15:18:17.2776856:  Detected/WpodNet:               People.mp4 (Frame: 6)
+2023-08-26 15:18:17.2779517:  Detected:                       People.mp4 (Frame: 6)
+2023-08-26 15:18:17.2780836:  Frame processed:                People.mp4 (Frame: 6)
+2023-08-26 15:18:17.3305588:  Frame processing:               People.mp4 (Frame: 7)
+2023-08-26 15:18:17.3307598:  Detecting:                      People.mp4 (Frame: 7)
+2023-08-26 15:18:17.3309057:  Detecting/Dnn:                  People.mp4 (Frame: 7)
+2023-08-26 15:18:17.4016820:  Detected/Dnn:                   People.mp4 (Frame: 7)
+2023-08-26 15:18:17.4018936:  Detecting/WpodNet:              People.mp4 (Frame: 7)
+2023-08-26 15:18:17.6636853:  Detected/WpodNet:               People.mp4 (Frame: 7)
+2023-08-26 15:18:17.6639438:  Detected:                       People.mp4 (Frame: 7)
+2023-08-26 15:18:17.6640978:  Frame processed:                People.mp4 (Frame: 7)
+2023-08-26 15:18:17.6642392:  Detected:                       People.mp4
+2023-08-26 15:18:17.6643767:  Tracking preparation:           People.mp4
+2023-08-26 15:18:17.6645582:  Tracking prepared:              People.mp4
+2023-08-26 15:18:17.6646886:  Tracking:                       People.mp4
+2023-08-26 15:18:17.6648278:  Frame processing:               People.mp4 (Frame: 0)
+2023-08-26 15:18:17.6650338:  Tracking/DeepSort:              People.mp4 (Frame: 0)
+2023-08-26 15:18:17.9937449:  Tracked/DeepSort:               People.mp4 (Frame: 0)
+2023-08-26 15:18:17.9940073:  Frame processed:                People.mp4 (Frame: 0)
+2023-08-26 15:18:17.9941828:  Frame processing:               People.mp4 (Frame: 1)
+2023-08-26 15:18:17.9944396:  Tracking/DeepSort:              People.mp4 (Frame: 1)
+2023-08-26 15:18:18.0667417:  Tracked/DeepSort:               People.mp4 (Frame: 1)
+2023-08-26 15:18:18.0670006:  Frame processed:                People.mp4 (Frame: 1)
+2023-08-26 15:18:18.0671718:  Frame processing:               People.mp4 (Frame: 2)
+2023-08-26 15:18:18.0674388:  Tracking/DeepSort:              People.mp4 (Frame: 2)
+2023-08-26 15:18:18.1517642:  Tracked/DeepSort:               People.mp4 (Frame: 2)
+2023-08-26 15:18:18.1519983:  Frame processed:                People.mp4 (Frame: 2)
+2023-08-26 15:18:18.1521306:  Frame processing:               People.mp4 (Frame: 3)
+2023-08-26 15:18:18.1523244:  Tracking/DeepSort:              People.mp4 (Frame: 3)
+2023-08-26 15:18:18.2267500:  Tracked/DeepSort:               People.mp4 (Frame: 3)
+2023-08-26 15:18:18.2269820:  Frame processed:                People.mp4 (Frame: 3)
+2023-08-26 15:18:18.2271025:  Frame processing:               People.mp4 (Frame: 4)
+2023-08-26 15:18:18.2272627:  Tracking/DeepSort:              People.mp4 (Frame: 4)
+2023-08-26 15:18:18.2997415:  Tracked/DeepSort:               People.mp4 (Frame: 4)
+2023-08-26 15:18:18.2999775:  Frame processed:                People.mp4 (Frame: 4)
+2023-08-26 15:18:18.3001506:  Frame processing:               People.mp4 (Frame: 5)
+2023-08-26 15:18:18.3003976:  Tracking/DeepSort:              People.mp4 (Frame: 5)
+2023-08-26 15:18:18.3747363:  Tracked/DeepSort:               People.mp4 (Frame: 5)
+2023-08-26 15:18:18.3750062:  Frame processed:                People.mp4 (Frame: 5)
+2023-08-26 15:18:18.3751829:  Frame processing:               People.mp4 (Frame: 6)
+2023-08-26 15:18:18.3754232:  Tracking/DeepSort:              People.mp4 (Frame: 6)
+2023-08-26 15:18:18.4547205:  Tracked/DeepSort:               People.mp4 (Frame: 6)
+2023-08-26 15:18:18.4549417:  Frame processed:                People.mp4 (Frame: 6)
+2023-08-26 15:18:18.4550607:  Frame processing:               People.mp4 (Frame: 7)
+2023-08-26 15:18:18.4552174:  Tracking/DeepSort:              People.mp4 (Frame: 7)
+2023-08-26 15:18:18.5407910:  Tracked/DeepSort:               People.mp4 (Frame: 7)
+2023-08-26 15:18:18.5410395:  Frame processed:                People.mp4 (Frame: 7)
+2023-08-26 15:18:18.5411794:  Tracked:                        People.mp4
+2023-08-26 15:18:18.5413390:  Preparing for anonymization:    People.mp4
+2023-08-26 15:18:18.5414820:  Preparing: Custom anonymizer  (Face)
+2023-08-26 15:18:18.5420090:  Object preparing:               classified object with id: 1 of class: Face
+2023-08-26 15:18:20.4225297:  Object prepared:                classified object with id: 1 of class: Face
+2023-08-26 15:18:20.4227607:  Object preparing:               classified object with id: 2 of class: Face
+2023-08-26 15:18:22.2957442:  Object prepared:                classified object with id: 2 of class: Face
+2023-08-26 15:18:22.3033843:  Object preparing:               classified object with id: 3 of class: Face
+2023-08-26 15:18:24.2955139:  Object prepared:                classified object with id: 3 of class: Face
+2023-08-26 15:18:24.2957175:  Object preparing:               classified object with id: 4 of class: Face
+2023-08-26 15:18:26.2764180:  Object prepared:                classified object with id: 4 of class: Face
+2023-08-26 15:18:26.2766163:  Object preparing:               classified object with id: 5 of class: Face
+2023-08-26 15:18:28.2759090:  Object prepared:                classified object with id: 5 of class: Face
+2023-08-26 15:18:28.2761310:  Object preparing:               classified object with id: 6 of class: Face
+2023-08-26 15:18:30.1396487:  Object prepared:                classified object with id: 6 of class: Face
+2023-08-26 15:18:30.1398375:  Prepared: Custom anonymizer  (Face)
+2023-08-26 15:18:30.1399684:  Preparing: Custom anonymizer  (License plate)
+2023-08-26 15:18:30.1401677:  Prepared: Custom anonymizer  (License plate)
+2023-08-26 15:18:30.1402667:  Prepared for anonymization:     People.mp4
+2023-08-26 15:18:30.1404030:  Modifing:                       People.mp4
+2023-08-26 15:18:30.1405497:  Frame processing:               People.mp4 (Frame: 0)
+2023-08-26 15:18:30.1406798:  Modifing:                       People.mp4 (Frame: 0)
+2023-08-26 15:18:30.1408818:  Anonymizing/Custom anonymizer:  People.mp4 (Frame: 0)
+2023-08-26 15:18:37.9916825:  Anonymized/Custom anonymizer:   People.mp4 (Frame: 0)
+2023-08-26 15:18:37.9918800:  Anonymizing/Custom anonymizer:  People.mp4
+2023-08-26 15:18:38.3646910:  Anonymized/Custom anonymizer:   People.mp4
+2023-08-26 15:18:38.3648658:  Modified:                       People.mp4 (Frame: 0)
+2023-08-26 15:18:38.3650053:  Frame processed:                People.mp4 (Frame: 0)
+2023-08-26 15:18:38.4073448:  Frame processing:               People.mp4 (Frame: 1)
+2023-08-26 15:18:38.4075305:  Modifing:                       People.mp4 (Frame: 1)
+2023-08-26 15:18:38.4077940:  Anonymizing/Custom anonymizer:  People.mp4 (Frame: 1)
+2023-08-26 15:18:45.9886780:  Anonymized/Custom anonymizer:   People.mp4 (Frame: 1)
+2023-08-26 15:18:45.9888768:  Anonymizing/Custom anonymizer:  People.mp4
+2023-08-26 15:18:46.3356693:  Anonymized/Custom anonymizer:   People.mp4
+2023-08-26 15:18:46.3358355:  Modified:                       People.mp4 (Frame: 1)
+2023-08-26 15:18:46.3359287:  Frame processed:                People.mp4 (Frame: 1)
+2023-08-26 15:18:46.3834875:  Frame processing:               People.mp4 (Frame: 2)
+2023-08-26 15:18:46.3836524:  Modifing:                       People.mp4 (Frame: 2)
+2023-08-26 15:18:46.3838575:  Anonymizing/Custom anonymizer:  People.mp4 (Frame: 2)
+2023-08-26 15:18:54.1246490:  Anonymized/Custom anonymizer:   People.mp4 (Frame: 2)
+2023-08-26 15:18:54.1248376:  Anonymizing/Custom anonymizer:  People.mp4
+2023-08-26 15:18:54.4916897:  Anonymized/Custom anonymizer:   People.mp4
+2023-08-26 15:18:54.4918687:  Modified:                       People.mp4 (Frame: 2)
+2023-08-26 15:18:54.4920040:  Frame processed:                People.mp4 (Frame: 2)
+2023-08-26 15:18:54.5432136:  Frame processing:               People.mp4 (Frame: 3)
+2023-08-26 15:18:54.5433805:  Modifing:                       People.mp4 (Frame: 3)
+2023-08-26 15:18:54.5436430:  Anonymizing/Custom anonymizer:  People.mp4 (Frame: 3)
+2023-08-26 15:19:02.1246810:  Anonymized/Custom anonymizer:   People.mp4 (Frame: 3)
+2023-08-26 15:19:02.1249022:  Anonymizing/Custom anonymizer:  People.mp4
+2023-08-26 15:19:02.4836845:  Anonymized/Custom anonymizer:   People.mp4
+2023-08-26 15:19:02.4838815:  Modified:                       People.mp4 (Frame: 3)
+2023-08-26 15:19:02.4840170:  Frame processed:                People.mp4 (Frame: 3)
+2023-08-26 15:19:02.5341868:  Frame processing:               People.mp4 (Frame: 4)
+2023-08-26 15:19:02.5343943:  Modifing:                       People.mp4 (Frame: 4)
+2023-08-26 15:19:02.5346086:  Anonymizing/Custom anonymizer:  People.mp4 (Frame: 4)
+2023-08-26 15:19:10.3066807:  Anonymized/Custom anonymizer:   People.mp4 (Frame: 4)
+2023-08-26 15:19:10.3069203:  Anonymizing/Custom anonymizer:  People.mp4
+2023-08-26 15:19:10.6606584:  Anonymized/Custom anonymizer:   People.mp4
+2023-08-26 15:19:10.6608562:  Modified:                       People.mp4 (Frame: 4)
+2023-08-26 15:19:10.6609845:  Frame processed:                People.mp4 (Frame: 4)
+2023-08-26 15:19:10.7119193:  Frame processing:               People.mp4 (Frame: 5)
+2023-08-26 15:19:10.7121394:  Modifing:                       People.mp4 (Frame: 5)
+2023-08-26 15:19:10.7123730:  Anonymizing/Custom anonymizer:  People.mp4 (Frame: 5)
+2023-08-26 15:19:18.0346816:  Anonymized/Custom anonymizer:   People.mp4 (Frame: 5)
+2023-08-26 15:19:18.0348728:  Anonymizing/Custom anonymizer:  People.mp4
+2023-08-26 15:19:18.4006486:  Anonymized/Custom anonymizer:   People.mp4
+2023-08-26 15:19:18.4008212:  Modified:                       People.mp4 (Frame: 5)
+2023-08-26 15:19:18.4009156:  Frame processed:                People.mp4 (Frame: 5)
+2023-08-26 15:19:18.4515793:  Frame processing:               People.mp4 (Frame: 6)
+2023-08-26 15:19:18.4517560:  Modifing:                       People.mp4 (Frame: 6)
+2023-08-26 15:19:18.4519475:  Anonymizing/Custom anonymizer:  People.mp4 (Frame: 6)
+2023-08-26 15:19:25.9636512:  Anonymized/Custom anonymizer:   People.mp4 (Frame: 6)
+2023-08-26 15:19:25.9638429:  Anonymizing/Custom anonymizer:  People.mp4
+2023-08-26 15:19:26.3576913:  Anonymized/Custom anonymizer:   People.mp4
+2023-08-26 15:19:26.3578765:  Modified:                       People.mp4 (Frame: 6)
+2023-08-26 15:19:26.3579845:  Frame processed:                People.mp4 (Frame: 6)
+2023-08-26 15:19:26.4088104:  Frame processing:               People.mp4 (Frame: 7)
+2023-08-26 15:19:26.4089828:  Modifing:                       People.mp4 (Frame: 7)
+2023-08-26 15:19:26.4091866:  Anonymizing/Custom anonymizer:  People.mp4 (Frame: 7)
+2023-08-26 15:19:33.4516804:  Anonymized/Custom anonymizer:   People.mp4 (Frame: 7)
+2023-08-26 15:19:33.4518714:  Anonymizing/Custom anonymizer:  People.mp4
+2023-08-26 15:19:33.8206863:  Anonymized/Custom anonymizer:   People.mp4
+2023-08-26 15:19:33.8208482:  Modified:                       People.mp4 (Frame: 7)
+2023-08-26 15:19:33.8209562:  Frame processed:                People.mp4 (Frame: 7)
+2023-08-26 15:19:33.8731346:  Modified:                       People.mp4
+2023-08-26 15:19:33.8733730:  Saving:                         People.mp4
+2023-08-26 15:19:34.2748500:  Saved:                          People.mp4
+2023-08-26 15:19:34.2751033:  Processed:                      People.mp4
+2023-08-26 15:19:34.2752361:  Execution finished sucessfully!
+Output directory: /home/piotr/ProjektMagisterski/Implementacja/userFiles/outputs
+2023-08-26 15:19:34.2754092:  
+
+Time consumption tree:
+
+ - System execution                                                                   Time (100.00%):   g:94.916 s  n:93.904 s  d:1.012 s
+        -> Images processed: 2
+        -> Frames processings: 28
+        -> Videos processed: 1
+
+    - Workers construction                                                               Time (3.76%):    g:3.570 s  n:3.569 s  d:0.001 s
+
+       - Constructon of Dnn                                                                 Time (0.13%):    0.124 s
+       - Constructon of WpodNet                                                             Time (2.66%):    2.521 s
+       - Constructon of DeepSort                                                            Time (0.11%):    0.103 s
+       - Constructon of Custom anonymizer                                                   Time (0.85%):    0.803 s   /   2 occurrences   =   0.401 s
+       - Constructon of UniversalImageAnnotator                                             Time (0.02%):    0.018 s
+
+    - Workers preparation                                                                Time (0.04%):    g:0.038 s  n:0.037 s  d:0.001 s
+
+       - Preparation of StyleGAN - results  (Face)                                          Time (0.02%):    0.019 s
+       - Preparation of PlatesMania  (License plate)                                        Time (0.02%):    0.019 s
+
+    - Image processing                                                                   Time (12.08%):   g:11.462 s  n:11.379 s  d:0.082 s   /   2 occurrences   =   g:5.731 s  n:5.690 s  d:0.041 s
+           -> Images processed: 2
+
+       - Frame processing                                                                   Time (11.99%):   g:11.382 s  n:11.379 s  d:0.003 s   /   3 occurrences   =   g:3.794 s  n:3.793 s  d:0.001 s
+              -> Frames processings: 4
+
+          - Image detection                                                                    Time (2.23%):    g:2.112 s  n:2.111 s  d:0.001 s   /   2 occurrences   =   g:1.056 s  n:1.055 s  d:0.001 s
+
+             - FaceDetection with Dnn                                                             Time (0.18%):    0.175 s   /   2 occurrences   =   0.087 s
+             - LicensePlateDetection with WpodNet                                                 Time (2.04%):    1.936 s   /   2 occurrences   =   0.968 s
+
+          - Image modification                                                                 Time (9.77%):    g:9.269 s  n:9.268 s  d:0.001 s   /   2 occurrences   =   g:4.635 s  n:4.634 s  d:0.000 s
+
+             - Annonymization with Custom anonymizer                                              Time (9.76%):    9.268 s   /   2 occurrences   =   4.634 s
+
+    - Video processing                                                                   Time (84.05%):   g:79.781 s  n:78.919 s  d:0.863 s
+           -> Videos processed: 1
+
+       - Video detection                                                                    Time (3.34%):    g:3.170 s  n:2.731 s  d:0.439 s
+
+          - Frame processing                                                                   Time (2.88%):    g:2.738 s  n:2.731 s  d:0.007 s   /   8 occurrences   =   g:0.342 s  n:0.341 s  d:0.001 s
+                 -> Frames processings: 8
+
+             - Image detection                                                                    Time (2.88%):    g:2.736 s  n:2.731 s  d:0.005 s   /   8 occurrences   =   g:0.342 s  n:0.341 s  d:0.001 s
+
+                - FaceDetection with Dnn                                                             Time (0.61%):    0.576 s   /   8 occurrences   =   0.072 s
+                - LicensePlateDetection with WpodNet                                                 Time (2.27%):    2.155 s   /   8 occurrences   =   0.269 s
+
+       - Preparation for video tracking                                                     Time (0.00%):    0.000 s
+
+       - Video tracking                                                                     Time (0.92%):    g:0.876 s  n:0.870 s  d:0.006 s
+
+          - Frame processing                                                                   Time (0.92%):    g:0.874 s  n:0.870 s  d:0.004 s   /   8 occurrences   =   g:0.109 s  n:0.109 s  d:0.000 s
+                 -> Frames processings: 8
+
+             - Object tracking with DeepSort                                                      Time (0.92%):    0.870 s   /   8 occurrences   =   0.109 s
+
+       - Video anonyization preperation                                                     Time (12.22%):   g:11.599 s  n:11.588 s  d:0.010 s
+
+          - Preparation of Custom anonymizer  (Face)                                           Time (12.22%):   g:11.598 s  n:11.588 s  d:0.010 s
+
+             - Object preparation                                                                 Time (12.21%):   11.588 s   /   6 occurrences   =   1.931 s
+
+          - Preparation of Custom anonymizer  (License plate)                                  Time (0.00%):    0.000 s
+
+       - Video modification                                                                 Time (67.15%):   g:63.733 s  n:63.328 s  d:0.405 s
+
+          - Frame processing                                                                   Time (66.73%):   g:63.335 s  n:63.328 s  d:0.008 s   /   8 occurrences   =   g:7.917 s  n:7.916 s  d:0.001 s
+                 -> Frames processings: 8
+
+             - Image modification                                                                 Time (66.73%):   g:63.333 s  n:63.328 s  d:0.006 s   /   8 occurrences   =   g:7.917 s  n:7.916 s  d:0.001 s
+
+                - Annonymization with Custom anonymizer                                              Time (66.72%):   63.328 s   /   9 occurrences   =   7.036 s
+
+       - Video saving                                                                       Time (0.42%):    0.401 s
+
+
+Workers performance details:
+
++-------------------------+--------------+-------------+-----------------+----------------------+
+|      Clone swapper      | Construction | Preparation | First execution | Secondary executions |
++=========================+==============+=============+=================+======================+
+| Measurements            | 1            | 0           | 1               | 9                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Avg exec time           | 12.826 ms    | -           | 36.922 ms       | 47.791 ms            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Max exec time           | 12.826 ms    | -           | 36.922 ms       | 50.838 ms            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Min exec time           | 12.826 ms    | -           | 36.922 ms       | 39.872 ms            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg leakage         | 0.0 B        | -           | 0.0 B           | 77.2 KiB             |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max leakage         | 0.0 B        | -           | 0.0 B           | 772.0 KiB            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg peak            | 0.0 B        | -           | 34.8 MiB        | 46.2 MiB             |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max peak            | 0.0 B        | -           | 34.8 MiB        | 47.5 MiB             |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM avg leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM avg peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+
+Worker: "Clone swapper"
+
+ -> Total resources cost:  1.4679913290682083
+
+  Time:  2.8676034193038937
+    (INFO) Longest construction time [s]:  0.01282644271850586
+    (INFO) Longest first exec. time [s]:   0.03692197799682617
+    (INFO) Secondary exec. avg time [s]:   0.04779143333435058
+    (INFO) Expected frame proc. time [s]:  0.016666666666666666
+    (INFO) Frame proc. time [s]:           0.04779339032173156
+  RAM:   0.06837923883252271
+    RAM leakage:  0.1334227311916166
+      (INFO) RAM leakage expected [GB]:   0.5333333333333333
+      (INFO) RAM leakage simulated [GB]:  0.07355003356933594
+      (INFO) RAM leakage max [GB]:        2.6666666666666665
+    RAM peak:     0.003335746473428837
+      (INFO) RAM peak expected [GB]:  8.0
+      (INFO) RAM peak [GB]:           0.033977508544921875
+      (INFO) RAM peak max [GB]:       16.0
+    (INFO) Constuction avg leakage [GB]:      0.0
+    (INFO) Constuction max peak [GB]:         0.0
+    (INFO) First exec. avg leakage [GB]:      0.0
+    (INFO) First exec. max peak [GB]:         0.033977508544921875
+    (INFO) Secondary exec. avg leakage [GB]:  7.36236572265625e-05
+    (INFO) Secondary exec. max peak [GB]:     0.033977508544921875
+
+
+
++-------------------------+--------------+-------------+-----------------+----------------------+
+|    Custom anonymizer    | Construction | Preparation | First execution | Secondary executions |
++=========================+==============+=============+=================+======================+
+| Measurements            | 2            | 0           | 2               | 16                   |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Avg exec time           | 13.875 ms    | -           | 5.940 s         | 3.741 s              |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Max exec time           | 13.876 ms    | -           | 8.562 s         | 7.845 s              |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Min exec time           | 13.873 ms    | -           | 695.858 ms      | 340.800 ms           |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg leakage         | 0.0 B        | -           | 136.5 MiB       | 60.2 KiB             |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max leakage         | 0.0 B        | -           | 176.4 MiB       | 1.0 MiB              |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg peak            | 0.0 B        | -           | 147.9 MiB       | 25.2 MiB             |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max peak            | 0.0 B        | -           | 176.4 MiB       | 47.5 MiB             |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | -6.6 MiB             |
+| RAM avg leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM avg peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+
+Worker: "Custom anonymizer"
+
+ -> Total resources cost:  37.48905342562594
+
+  Time:  74.91199594357433
+    (INFO) Longest construction time [s]:  0.013876199722290039
+    (INFO) Longest first exec. time [s]:   8.561871528625488
+    (INFO) Secondary exec. avg time [s]:   3.740764814264634
+    (INFO) Expected frame proc. time [s]:  0.05
+    (INFO) Frame proc. time [s]:           3.7455997971787167
+  RAM:   0.06611090767755673
+    RAM leakage:  0.11530709058172318
+      (INFO) RAM leakage expected [GB]:   1.6
+      (INFO) RAM leakage simulated [GB]:  0.19072125004787072
+      (INFO) RAM leakage max [GB]:        8.0
+    RAM peak:     0.016914724773390278
+      (INFO) RAM peak expected [GB]:  8.0
+      (INFO) RAM peak [GB]:           0.17227554321289062
+      (INFO) RAM peak max [GB]:       16.0
+    (INFO) Constuction avg leakage [GB]:      0.0
+    (INFO) Constuction max peak [GB]:         0.0
+    (INFO) First exec. avg leakage [GB]:      0.1333338419596354
+    (INFO) First exec. max peak [GB]:         0.17227554321289062
+    (INFO) Secondary exec. avg leakage [GB]:  5.744485294117647e-05
+    (INFO) Secondary exec. max peak [GB]:     0.17227554321289062
+
+
+
++-------------------------+--------------+-------------+-----------------+----------------------+
+|        DeepSort         | Construction | Preparation | First execution | Secondary executions |
++=========================+==============+=============+=================+======================+
+| Measurements            | 1            | 0           | 1               | 7                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Avg exec time           | 12.860 ms    | -           | 321.865 ms      | 72.243 ms            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Max exec time           | 12.860 ms    | -           | 321.865 ms      | 78.914 ms            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Min exec time           | 12.860 ms    | -           | 321.865 ms      | 65.865 ms            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg leakage         | 0.0 B        | -           | 59.7 MiB        | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max leakage         | 0.0 B        | -           | 59.7 MiB        | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg peak            | 0.0 B        | -           | 113.8 MiB       | 40.5 MiB             |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max peak            | 0.0 B        | -           | 113.8 MiB       | 54.0 MiB             |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM avg leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM avg peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+
+Worker: "DeepSort"
+
+ -> Total resources cost:  2.204337175288944
+
+  Time:  4.3503220421075826
+    (INFO) Longest construction time [s]:  0.012859582901000977
+    (INFO) Longest first exec. time [s]:   0.3218648433685303
+    (INFO) Secondary exec. avg time [s]:   0.07224288582801819
+    (INFO) Expected frame proc. time [s]:  0.016666666666666666
+    (INFO) Frame proc. time [s]:           0.07250536736845971
+  RAM:   0.05835230847030532
+    RAM leakage:  0.10579629259935013
+      (INFO) RAM leakage expected [GB]:   0.5333333333333333
+      (INFO) RAM leakage simulated [GB]:  0.0583343505859375
+      (INFO) RAM leakage max [GB]:        2.6666666666666665
+    RAM peak:     0.01090832434126052
+      (INFO) RAM peak expected [GB]:  8.0
+      (INFO) RAM peak [GB]:           0.11110687255859375
+      (INFO) RAM peak max [GB]:       16.0
+    (INFO) Constuction avg leakage [GB]:      0.0
+    (INFO) Constuction max peak [GB]:         0.0
+    (INFO) First exec. avg leakage [GB]:      0.0583343505859375
+    (INFO) First exec. max peak [GB]:         0.11110687255859375
+    (INFO) Secondary exec. avg leakage [GB]:  0.0
+    (INFO) Secondary exec. max peak [GB]:     0.11110687255859375
+
+
+
++-------------------------+--------------+-------------+-----------------+----------------------+
+|         DlibHOG         | Construction | Preparation | First execution | Secondary executions |
++=========================+==============+=============+=================+======================+
+| Measurements            | 1            | 0           | 0               | 0                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Avg exec time           | 13.870 ms    | -           | -               | -                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Max exec time           | 13.870 ms    | -           | -               | -                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Min exec time           | 13.870 ms    | -           | -               | -                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg leakage         | 0.0 B        | -           | -               | -                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max leakage         | 0.0 B        | -           | -               | -                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg peak            | 0.0 B        | -           | -               | -                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max peak            | 0.0 B        | -           | -               | -                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | -               | -                    |
+| RAM avg leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | -               | -                    |
+| RAM max leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | -               | -                    |
+| RAM avg peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | -               | -                    |
+| RAM max peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+
+Worker: "DlibHOG"
+
+ -> Total resources cost:  Unable to define
+
+  Time:  Unable to define
+    (INFO) Longest construction time [s]:  0.013870000839233398
+    (INFO) Secondary exec. avg time [s]:   Not available!
+  RAM:   Unable to define
+    (INFO) Constuction avg leakage [GB]:      0.0
+    (INFO) Constuction max peak [GB]:         0.0
+    (INFO) Secondary exec. avg leakage [GB]:  Not available!
+    (INFO) Secondary exec. max peak [GB]:     Not available!
+
+
+
++-------------------------+--------------+-------------+-----------------+----------------------+
+|           Dnn           | Construction | Preparation | First execution | Secondary executions |
++=========================+==============+=============+=================+======================+
+| Measurements            | 1            | 0           | 1               | 9                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Avg exec time           | 13.046 ms    | -           | 103.863 ms      | 64.854 ms            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Max exec time           | 13.046 ms    | -           | 103.863 ms      | 68.844 ms            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Min exec time           | 13.046 ms    | -           | 103.863 ms      | 59.850 ms            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg leakage         | 0.0 B        | -           | 837.3 MiB       | 434.0 KiB            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max leakage         | 0.0 B        | -           | 837.3 MiB       | 4.2 MiB              |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg peak            | 0.0 B        | -           | 837.3 MiB       | 434.0 KiB            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max peak            | 0.0 B        | -           | 837.3 MiB       | 4.2 MiB              |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM avg leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM avg peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+
+Worker: "Dnn"
+
+ -> Total resources cost:  2.6492879780160097
+
+  Time:  3.8943590912818906
+    (INFO) Longest construction time [s]:  0.013045787811279297
+    (INFO) Longest first exec. time [s]:   0.10386252403259277
+    (INFO) Secondary exec. avg time [s]:   0.06485393047332763
+    (INFO) Expected frame proc. time [s]:  0.016666666666666666
+    (INFO) Frame proc. time [s]:           0.06490598485469817
+  RAM:   1.4042168647501287
+    RAM leakage:  2.7279814965591775
+      (INFO) RAM leakage expected [GB]:   0.5333333333333333
+      (INFO) RAM leakage simulated [GB]:  1.2311992645263672
+      (INFO) RAM leakage max [GB]:        2.6666666666666665
+    RAM peak:     0.08045223294108007
+      (INFO) RAM peak expected [GB]:  8.0
+      (INFO) RAM peak [GB]:           0.817718505859375
+      (INFO) RAM peak max [GB]:       16.0
+    (INFO) Constuction avg leakage [GB]:      0.0
+    (INFO) Constuction max peak [GB]:         0.0
+    (INFO) First exec. avg leakage [GB]:      0.817718505859375
+    (INFO) First exec. max peak [GB]:         0.817718505859375
+    (INFO) Secondary exec. avg leakage [GB]:  0.0004138946533203125
+    (INFO) Secondary exec. max peak [GB]:     0.817718505859375
+
+
+
++-------------------------+--------------+-------------+-----------------+----------------------+
+|         EasyOCR         | Construction | Preparation | First execution | Secondary executions |
++=========================+==============+=============+=================+======================+
+| Measurements            | 1            | 0           | 1               | 9                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Avg exec time           | 13.865 ms    | -           | 234.857 ms      | 241.458 ms           |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Max exec time           | 13.865 ms    | -           | 234.857 ms      | 273.864 ms           |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Min exec time           | 13.865 ms    | -           | 234.857 ms      | 226.919 ms           |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg leakage         | 0.0 B        | -           | 56.0 MiB        | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max leakage         | 0.0 B        | -           | 56.0 MiB        | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg peak            | 0.0 B        | -           | 56.0 MiB        | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max peak            | 0.0 B        | -           | 56.0 MiB        | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM avg leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM avg peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+
+Worker: "EasyOCR"
+
+ -> Total resources cost:  7.270111200981475
+
+  Time:  14.4879235868454
+    (INFO) Longest construction time [s]:  0.013864755630493164
+    (INFO) Longest first exec. time [s]:   0.23485660552978516
+    (INFO) Secondary exec. avg time [s]:   0.2414581298828125
+    (INFO) Expected frame proc. time [s]:  0.016666666666666666
+    (INFO) Frame proc. time [s]:           0.24146539311409
+  RAM:   0.052298815117549996
+    RAM leakage:  0.09922602426482056
+      (INFO) RAM leakage expected [GB]:   0.5333333333333333
+      (INFO) RAM leakage simulated [GB]:  0.054714202880859375
+      (INFO) RAM leakage max [GB]:        2.6666666666666665
+    RAM peak:     0.005371605970279427
+      (INFO) RAM peak expected [GB]:  8.0
+      (INFO) RAM peak [GB]:           0.054714202880859375
+      (INFO) RAM peak max [GB]:       16.0
+    (INFO) Constuction avg leakage [GB]:      0.0
+    (INFO) Constuction max peak [GB]:         0.0
+    (INFO) First exec. avg leakage [GB]:      0.054714202880859375
+    (INFO) First exec. max peak [GB]:         0.054714202880859375
+    (INFO) Secondary exec. avg leakage [GB]:  0.0
+    (INFO) Secondary exec. max peak [GB]:     0.054714202880859375
+
+
+
++-------------------------+--------------+-------------+-----------------+----------------------+
+|       PlatesMania       | Construction | Preparation | First execution | Secondary executions |
++=========================+==============+=============+=================+======================+
+| Measurements            | 1            | 1           | 1               | 9                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Avg exec time           | 13.840 ms    | 12.857 ms   | 20.927 ms       | 25.048 ms            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Max exec time           | 13.840 ms    | 12.857 ms   | 20.927 ms       | 26.852 ms            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Min exec time           | 13.840 ms    | 12.857 ms   | 20.927 ms       | 20.921 ms            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg leakage         | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max leakage         | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg peak            | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max peak            | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
+| RAM avg leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
+| RAM max leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
+| RAM avg peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
+| RAM max peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+
+Worker: "PlatesMania"
+
+ -> Total resources cost:  0.7521163787841797
+
+  Time:  1.5042327575683594
+    (INFO) Longest construction time [s]:  0.013840198516845703
+    (INFO) Longest Preparation  time [s]:  0.012856721878051758
+    (INFO) Longest first exec. time [s]:   0.02092719078063965
+    (INFO) Secondary exec. avg time [s]:   0.025047969818115235
+    (INFO) Expected frame proc. time [s]:  0.016666666666666666
+    (INFO) Frame proc. time [s]:           0.025070545959472657
+  RAM:   0.0
+    RAM leakage:  0.0
+      (INFO) RAM leakage expected [GB]:   0.5333333333333333
+      (INFO) RAM leakage simulated [GB]:  0.0
+      (INFO) RAM leakage max [GB]:        2.6666666666666665
+    RAM peak:     0.0
+      (INFO) RAM peak expected [GB]:  8.0
+      (INFO) RAM peak [GB]:           0
+      (INFO) RAM peak max [GB]:       16.0
+    (INFO) Constuction avg leakage [GB]:      0.0
+    (INFO) Constuction max peak [GB]:         0.0
+    (INFO) Preparation avg leakage [GB]:      0.0
+    (INFO) Preparation max peak [GB]:         0.0
+    (INFO) First exec. avg leakage [GB]:      0.0
+    (INFO) First exec. max peak [GB]:         0.0
+    (INFO) Secondary exec. avg leakage [GB]:  0.0
+    (INFO) Secondary exec. max peak [GB]:     0.0
+
+
+
++-------------------------+--------------+-------------+-----------------+----------------------+
+|   StyleGAN - results    | Construction | Preparation | First execution | Secondary executions |
++=========================+==============+=============+=================+======================+
+| Measurements            | 1            | 1           | 1               | 16                   |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Avg exec time           | 13.868 ms    | 12.845 ms   | 547.871 ms      | 566.677 ms           |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Max exec time           | 13.868 ms    | 12.845 ms   | 547.871 ms      | 584.862 ms           |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Min exec time           | 13.868 ms    | 12.845 ms   | 547.871 ms      | 539.891 ms           |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg leakage         | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max leakage         | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg peak            | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max peak            | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
+| RAM avg leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
+| RAM max leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
+| RAM avg peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | 0.0 B       | 0.0 B           | 0.0 B                |
+| RAM max peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+
+Worker: "StyleGAN - results"
+
+ -> Total resources cost:  17.000559273888083
+
+  Time:  34.001118547776166
+    (INFO) Longest construction time [s]:  0.013868331909179688
+    (INFO) Longest Preparation  time [s]:  0.012845039367675781
+    (INFO) Longest first exec. time [s]:   0.5478711128234863
+    (INFO) Secondary exec. avg time [s]:   0.56667740204755
+    (INFO) Expected frame proc. time [s]:  0.016666666666666666
+    (INFO) Frame proc. time [s]:           0.5666853091296028
+  RAM:   0.0
+    RAM leakage:  0.0
+      (INFO) RAM leakage expected [GB]:   0.5333333333333333
+      (INFO) RAM leakage simulated [GB]:  0.0
+      (INFO) RAM leakage max [GB]:        2.6666666666666665
+    RAM peak:     0.0
+      (INFO) RAM peak expected [GB]:  8.0
+      (INFO) RAM peak [GB]:           0
+      (INFO) RAM peak max [GB]:       16.0
+    (INFO) Constuction avg leakage [GB]:      0.0
+    (INFO) Constuction max peak [GB]:         0.0
+    (INFO) Preparation avg leakage [GB]:      0.0
+    (INFO) Preparation max peak [GB]:         0.0
+    (INFO) First exec. avg leakage [GB]:      0.0
+    (INFO) First exec. max peak [GB]:         0.0
+    (INFO) Secondary exec. avg leakage [GB]:  0.0
+    (INFO) Secondary exec. max peak [GB]:     0.0
+
+
+
++-------------------------+--------------+-------------+-----------------+----------------------+
+|         WpodNet         | Construction | Preparation | First execution | Secondary executions |
++=========================+==============+=============+=================+======================+
+| Measurements            | 1            | 0           | 1               | 9                    |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Avg exec time           | 13.854 ms    | -           | 1.145 s         | 313.716 ms           |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Max exec time           | 13.854 ms    | -           | 1.145 s         | 779.850 ms           |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Min exec time           | 13.854 ms    | -           | 1.145 s         | 254.775 ms           |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg leakage         | 0.0 B        | -           | 1.1 GiB         | 87.0 MiB             |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max leakage         | 0.0 B        | -           | 1.1 GiB         | 558.2 MiB            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg peak            | 0.0 B        | -           | 1.9 GiB         | 449.2 MiB            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max peak            | 0.0 B        | -           | 1.9 GiB         | 870.5 MiB            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM avg leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM avg peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+
+Worker: "WpodNet"
+
+ -> Total resources cost:  259.4832196971821
+
+  Time:  18.873672534942628
+    (INFO) Longest construction time [s]:  0.01385354995727539
+    (INFO) Longest first exec. time [s]:   1.144850730895996
+    (INFO) Secondary exec. avg time [s]:   0.3137162208557129
+    (INFO) Expected frame proc. time [s]:  0.016666666666666666
+    (INFO) Frame proc. time [s]:           0.31456120891571043
+  RAM:   500.09276685942154
+    RAM leakage:  1000.0
+      (INFO) RAM leakage expected [GB]:   0.5333333333333333
+      (INFO) RAM leakage simulated [GB]:  85.96810264587403
+      (INFO) RAM leakage max [GB]:        2.6666666666666665
+    RAM peak:     0.18553371884308492
+      (INFO) RAM peak expected [GB]:  8.0
+      (INFO) RAM peak [GB]:           1.8685836791992188
+      (INFO) RAM peak max [GB]:       16.0
+    (INFO) Constuction avg leakage [GB]:      0.0
+    (INFO) Constuction max peak [GB]:         0.0
+    (INFO) First exec. avg leakage [GB]:      1.1275672912597656
+    (INFO) First exec. max peak [GB]:         1.8685836791992188
+    (INFO) Secondary exec. avg leakage [GB]:  0.08492546081542969
+    (INFO) Secondary exec. max peak [GB]:     1.8685836791992188
+
+
+
++-------------------------+--------------+-------------+-----------------+----------------------+
+|   WuHukaiFaceSwapper    | Construction | Preparation | First execution | Secondary executions |
++=========================+==============+=============+=================+======================+
+| Measurements            | 1            | 0           | 1               | 52                   |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Avg exec time           | 13.853 ms    | -           | 1.156 s         | 1.232 s              |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Max exec time           | 13.853 ms    | -           | 1.156 s         | 1.447 s              |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| Min exec time           | 13.853 ms    | -           | 1.156 s         | 1.055 s              |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg leakage         | 0.0 B        | -           | 169.5 MiB       | 151.9 KiB            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max leakage         | 0.0 B        | -           | 169.5 MiB       | 6.9 MiB              |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM avg peak            | 0.0 B        | -           | 169.5 MiB       | 151.9 KiB            |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| RAM max peak            | 0.0 B        | -           | 169.5 MiB       | 6.9 MiB              |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | -2.1 MiB             |
+| RAM avg leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max leakage         |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM avg peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+| NVIDIA GeForce GTX 1050 | 0.0 B        | -           | 0.0 B           | 0.0 B                |
+| RAM max peak            |              |             |                 |                      |
++-------------------------+--------------+-------------+-----------------+----------------------+
+
+Worker: "WuHukaiFaceSwapper"
+
+ -> Total resources cost:  37.09663349345955
+
+  Time:  73.90067784696255
+    (INFO) Longest construction time [s]:  0.013853073120117188
+    (INFO) Longest first exec. time [s]:   1.1558711528778076
+    (INFO) Secondary exec. avg time [s]:   1.2317399798699145
+    (INFO) Expected frame proc. time [s]:  0.016666666666666666
+    (INFO) Frame proc. time [s]:           1.2316779641160425
+  RAM:   0.292589139956554
+    RAM leakage:  0.5689217450192813
+      (INFO) RAM leakage expected [GB]:   0.5333333333333333
+      (INFO) RAM leakage simulated [GB]:  0.31031475427015776
+      (INFO) RAM leakage max [GB]:        2.6666666666666665
+    RAM peak:     0.016256534893826693
+      (INFO) RAM peak expected [GB]:  8.0
+      (INFO) RAM peak [GB]:           0.1655731201171875
+      (INFO) RAM peak max [GB]:       16.0
+    (INFO) Constuction avg leakage [GB]:      0.0
+    (INFO) Constuction max peak [GB]:         0.0
+    (INFO) First exec. avg leakage [GB]:      0.1655731201171875
+    (INFO) First exec. max peak [GB]:         0.1655731201171875
+    (INFO) Secondary exec. avg leakage [GB]:  0.00014488652067364387
+    (INFO) Secondary exec. max peak [GB]:     0.1655731201171875
+
