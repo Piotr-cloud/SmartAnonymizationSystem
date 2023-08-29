@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+
 processingUnit=$1
 
 if ! [[ "$processingUnit" =~ ^(GPU|CPU)$ ]]; then echo "Wrong processing unit !!"; exit 1; fi
