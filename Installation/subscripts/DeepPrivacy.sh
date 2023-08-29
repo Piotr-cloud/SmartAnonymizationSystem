@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt install ffmpeg -y
+sudo apt install ffmpeg -y || exit $?
 
 git clone https://github.com/hukkelas/DeepPrivacy
 

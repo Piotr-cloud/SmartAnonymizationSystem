@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 processingUnit=$1
 
 if ! [[ "$processingUnit" =~ ^(GPU|CPU)$ ]]; then echo "Wrong processing unit !!"; exit 1; fi
@@ -17,7 +17,7 @@ echo "|  \"sudo apt-get update\""
 echo "#------------------------------#"
 
 sudo add-apt-repository ppa:deadsnakes/ppa -y
-sudo apt-get update 
+sudo apt-get update
 
 echo "#------------------------------#"
 echo "|  \"sudo apt-get update\" - DONE"

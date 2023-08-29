@@ -12,16 +12,14 @@
 #make -j $(nproc)
 #
 
+sudo apt install python3.10 -y || exit $?
 
-sudo apt install python3.10 -y
-
-sudo apt-get install python3.10-distutils -y
-sudo apt install python3.10-venv -y
+sudo apt-get install python3.10-distutils -y || exit $?
+sudo apt install python3.10-venv -y || exit $?
 
 /usr/bin/python3.10 -m venv "$basePWD/$processingUnit/env"
 
-sudo apt install libpython3.10-dev -y
-sudo apt install python3.10-tk -y
-
+sudo apt install libpython3.10-dev -y || exit $?
+sudo apt install python3.10-tk -y || exit $?
 
 
