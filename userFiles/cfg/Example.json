@@ -1,0 +1,91 @@
+{
+   "Classes": {
+      "Face": {
+         "Detector": {
+            "Dnn": {
+               "Configuration file": "System/NonPythonFiles/WorkersFiles/Detectors/Dnn/Models/deploy.prototxt",
+               "Model file": "System/NonPythonFiles/WorkersFiles/Detectors/Dnn/Models/sr6033/res10_300x300_ssd_iter_140000.caffemodel",
+               "Confidence threshold": 0.5
+            }
+         },
+         "Tracker": {
+            "DeepSort": {
+               "Weights file": "System/NonPythonFiles/WorkersFiles/Trackers/DeepSort/resources/networks/mars-small128.pb",
+               "Max iou distance": 0.2,
+               "Max age": 30,
+               "No. of init frames": 30,
+               "Use embedded stabilization?": false
+            }
+         },
+         "Anonymizer": {
+            "Custom anonymizer": {
+               "Content generator": {
+                  "StyleGAN - results": {
+                     "Online generation": false,
+                     "Preprocessing detector": {
+                        "Haar": {
+                           "Xml configuration file": "System/NonPythonFiles/WorkersFiles/Detectors/Haar/configuration/haarcascade_frontalface2.xml"
+                        }
+                     }
+                  }
+               },
+               "Content swapper": {
+                  "WuHukaiFaceSwapper": {
+                     "Additional context of area [%]": 10
+                  }
+               }
+            }
+         }
+      },
+      "License plate": {
+         "Detector": {
+            "WpodNet": {
+               "Model file": "System/NonPythonFiles/WorkersFiles/Detectors/WpodNet/wpod-net.json"
+            }
+         },
+         "Tracker": {
+            "SORT": {
+               "Max age": 30,
+               "IOU threshold": 0.3,
+               "Absolute coords to Kalman": false
+            }
+         },
+         "Stabilizer": {
+            "KalmanBasedStabilizer": {
+               "Expected noise level": 10.0,
+               "Covariance level": 10.0,
+               "Allowed gap <not tested>": 0
+            }
+         },
+         "Anonymizer": {
+            "Custom anonymizer": {
+               "Content generator": {
+                  "PlatesMania": {
+                     "Plate recognizer": {
+                        "EasyOCR": {
+                           "Configuration file": "System/NonPythonFiles/WorkersFiles/ContentRecognizer/EasyOCR/data/ocr/ocr-net.cfg",
+                           "Weights file": "System/NonPythonFiles/WorkersFiles/ContentRecognizer/EasyOCR/data/ocr/ocr-net.weights"
+                        }
+                     },
+                     "Keep original starting letters": 4,
+                     "Apply shortest Levenshtein distance": false
+                  }
+               },
+               "Content swapper": {
+                  "Clone swapper": {}
+               }
+            }
+         }
+      }
+   },
+   "UniversalImageAnnotator": {
+      "Black color saturation limit": 100,
+      "Black color value limit": 100,
+      "Black color comp. RED": 0,
+      "Black color comp. GREEN": 0,
+      "Black color comp. BLUE": 0,
+      "Line thickness": 5,
+      "Color related to object ID": true,
+      "Color random seed": 6
+   }
+}

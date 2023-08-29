@@ -1,0 +1,24 @@
+{
+   "Classes": {
+      "Face": {
+         "Detector": {
+            "DlibHOG": {
+               "Upsample factor": 1
+            }
+         },
+         "Anonymizer": {
+            "GausBlur": {}
+         }
+      }
+   },
+   "UniversalImageAnnotator": {
+      "Black color saturation limit": 100,
+      "Black color value limit": 100,
+      "Black color comp. RED": 0,
+      "Black color comp. GREEN": 0,
+      "Black color comp. BLUE": 0,
+      "Line thickness": 5,
+      "Color related to object ID": true,
+      "Color random seed": 6
+   }
+}
