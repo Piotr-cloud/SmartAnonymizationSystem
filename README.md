@@ -27,6 +27,40 @@ There are two leading use cases where this system can be used:
 
 Execution of smart anonymization sequence generates results of measurement resources cost of execution in text format ([example](_README/WorkersPerformanceStr.txt)) and JSON format ([example](_README/WorkersPerformance.json)). Console logs example can be found [here](_README/ConsoleLogs.log).
 
+## Installation
+
+### Ubuntu
+Tested on versions: 22.04.2 LTS, 20.04.6 LTS, 20.04.4 LTS.
+
+To install the system, do the following:
+0) Make sure there is no internet connection issues, system time clock is properly set and there are no broken packages
+1) Open terminal console
+2) Clone this repository
+3) Change directory to repository root folder
+4) Execute the following command to use CPU-only processing:
+```
+sudo bash ./Installation/install.sh CPU
+```
+Alternatively, to try GPU support automated installation, run (not recommended):
+```
+sudo bash ./Installation/install.sh GPU
+```
+Automated installation of GPU-supported processing is not recommended because it is more vulnerable to HW configuration changes. In this case, manual installation is recommended.
+
+NOTE: The above steps when succeeded leads to the following results:
+- Installation of Python 3.10 in host operating system
+- Installation of virtual environment inside ./Installation folder
+- Installation of the following libraries (OS - host operating system, venv - virtual environment):
+  - DeepPrivacy (venv)
+  - Dlib (venv)
+  - Nvidia drivers (OS + venv)
+  - OpenCV (OS + venv)
+  - PyTorch (venv)
+  - Tensorflow (venv)
+  - cmake, unsip, yasm, git, wget and others (OS)
+  - scipy, graphviz, mtcnn, psutil, gdown and others (venv)
+- Update of host operating system repository (“sudo apt update”)
+
 ## Run
 To run the system, do the following:
 1) Make sure project is properly installed (see [Installation](#installation) chapter)
@@ -69,7 +103,6 @@ mv ./System/Configuration/integrationCfg.py.bak ./System/Configuration/integrati
 6) Compare input images and videos in "./ userFiles/inputs" with modified ones in "./ userFiles/outputs"
 
 ## Built-in solutions
-
 By default, the system integrates the following solutions (so-called "Workers"):
 
 Face detectors:
@@ -125,40 +158,6 @@ The difference that might be noticed is the way you shall follow to make new sol
 Additionally, during component(new solution) implementation, keep in mind that there are some constraints (on interfaces, classes inheritance and others) that have to be fulfilled, otherwise execution error is raised.
 
 NOTE: There is nothing against implementing a solution (so-called "Worker") with local frontend and remote backend.
-
-## Installation
-
-### Ubuntu
-Tested on versions: 22.04.2 LTS, 20.04.6 LTS, 20.04.4 LTS.
-
-To install the system, do the following:
-0) Make sure there is no internet connection issues, system time clock is properly set and there are no broken packages
-1) Open terminal console
-2) Clone this repository
-3) Change directory to repository root folder
-4) Execute the following command to use CPU-only processing:
-```
-sudo bash ./Installation/install.sh CPU
-```
-Alternatively, to try GPU support automated installation, run (not recommended):
-```
-sudo bash ./Installation/install.sh GPU
-```
-Automated installation of GPU-supported processing is not recommended because it is more vulnerable to HW configuration changes. In this case, manual installation is recommended.
-
-NOTE: The above steps when succeeded leads to the following results:
-- Installation of Python 3.10 in host operating system
-- Installation of virtual environment inside ./Installation folder
-- Installation of the following libraries (OS - host operating system, venv - virtual environment):
-  - DeepPrivacy (venv)
-  - Dlib (venv)
-  - Nvidia drivers (OS + venv)
-  - OpenCV (OS + venv)
-  - PyTorch (venv)
-  - Tensorflow (venv)
-  - cmake, unsip, yasm, git, wget and others (OS)
-  - scipy, graphviz, mtcnn, psutil, gdown and others (venv)
-- Update of host operating system repository (“sudo apt update”)
 
 ### Windows
 Tested on version: Windows 11 Home
