@@ -9,6 +9,7 @@ import gdown
 from pathlib import Path
 import os
 import zipfile
+import time
 
 
 filesDownloadDict = {
@@ -82,7 +83,7 @@ class GoogleDriveDownload_Cls():
                     except:
                         pass
                     
-                    time.sleep(0.1)
+                    time.sleep(0.25)
                     print("Reattempting download...")
                     cnt-=1
                 
