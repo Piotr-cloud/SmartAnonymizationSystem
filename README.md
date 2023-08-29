@@ -61,6 +61,13 @@ NOTE: The above steps when succeeded leads to the following results:
   - scipy, graphviz, mtcnn, psutil, gdown and others (venv)
 - Update of host operating system repository (“sudo apt update”)
 
+### Windows
+Tested on version: Windows 11 Home
+
+The following SW can be run on Windows with WSL version 2 (Windows Subsystem for Linux) support of Ubuntu virtualization. To do that, this following instruction might be helpful: [InstallWSL](_README/InstallWSL.md).
+
+Whenver WSL 2 is installed, and Ubuntu subsystem is available, continue installation with the instruction described in [Ubuntu](#ubuntu) section above.
+
 ## Run
 To run the system, do the following:
 1) Make sure project is properly installed (see [Installation](#installation) chapter)
@@ -158,13 +165,6 @@ The difference that might be noticed is the way you shall follow to make new sol
 Additionally, during component(new solution) implementation, keep in mind that there are some constraints (on interfaces, classes inheritance and others) that have to be fulfilled, otherwise execution error is raised.
 
 NOTE: There is nothing against implementing a solution (so-called "Worker") with local frontend and remote backend.
-
-### Windows
-Tested on version: Windows 11 Home
-
-The following SW can be run on Windows with WSL version 2 (Windows Subsystem for Linux) support of Ubuntu virtualization. To do that, this following instruction might be helpful: [InstallWSL](_README/InstallWSL.md).
-
-Whenver WSL 2 is installed, and Ubuntu subsystem is available, continue installation with the instruction described in [Ubuntu](#ubuntu) section above.
 
 ## Uninstall
 To uninstall this project by removing virtual environment, execute the following terminal command after working directory is changed to repository root folder:
