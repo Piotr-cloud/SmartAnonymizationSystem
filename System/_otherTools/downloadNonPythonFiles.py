@@ -1,221 +1,415 @@
 '''
-Created on Aug 9, 2023
+Created on Aug 29, 2023
 
 @author: piotr
 '''
 
-import argparse
-import gdown
+import requests
+
 from pathlib import Path
 import os
+from PolymorphicBases.ABC import abstractmethod, final, Base_AbstCls
+import hashlib
+import shutil
 import zipfile
-import time
 
-
-filesDownloadDict = {
-    "System/NonPythonFiles/WorkersFiles/Anonymizers/AgentSmit/AgentSmith.jpeg": "https://drive.google.com/file/d/1gT8vRF3RQy7H7k1NJ1iuFoaa6EakKu_B/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/ContentGenerators/ExampleProvider/Face/Face_example.jpeg" : "https://drive.google.com/file/d/1ymd2oAzgv8dOwqjAQQ2_Ih27S12q7VVb/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/ContentGenerators/ExampleProvider/Plate/Plate_example.png" : "https://drive.google.com/file/d/1yLVKDav2wNh3eic7mXtUl4ezBC3_Ofmu/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/ContentRecognizer/EasyOCR/darknet/libdarknet.so" : "https://drive.google.com/file/d/1t28odQvlcLYQxJgRY0yaaJnGcVfKk-OR/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/ContentSwappers/DlibBasedSwapper/models/shape_predictor_68_face_landmarks.dat" : "https://drive.google.com/file/d/1NyuYzWWaDLLik9GiT62lRINYtuFuAmT6/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/ContentSwappers/MKFaceSwapper/predictor/shape_predictor_68_face_landmarks.dat" : "https://drive.google.com/file/d/1NyuYzWWaDLLik9GiT62lRINYtuFuAmT6/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/ContentSwappers/MKFaceSwapper/model/candide.npz" : "https://drive.google.com/file/d/12OTwUK5pUREPITiR1eHo4JIcQTqI94QA/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/ContentSwappers/WuHukaiFaceSwapper/models/shape_predictor_68_face_landmarks.dat" : "https://drive.google.com/file/d/1NyuYzWWaDLLik9GiT62lRINYtuFuAmT6/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/DlibCNN/Model/mmod_human_face_detector.dat" : "https://drive.google.com/file/d/19D2EG-X-1DHekLW9eUPifbPnuaOqpmey/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/Haar/configuration/haarcascade_frontalface2.xml" : "https://drive.google.com/file/d/1MU3nzBS4BiIZN1SrwVXqOWaKCx1Prj2e/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/Lpd_ThorPham/data/coco.names" : "https://drive.google.com/file/d/1hrhI2IyVVkQeqpnGYrEFYBiewwThv7nO/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/Lpd_ThorPham/cfg/coco.data" : "https://drive.google.com/file/d/1k_iFBgqIx146JqulDUxpSvvkImyW_I4y/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/Lpd_ThorPham/cfg/yolov3.cfg" : "https://drive.google.com/file/d/1iGt666e7Cj1qnjZDeoSHJhdbb3ZPkZiL/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/Lpd_ThorPham/weights/best.pt" : "https://drive.google.com/file/d/1ya4Xk2ZJU3YLLxqIKlZfwAbRgWhxSMoV/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/LPD_YuNet/Models/license_plate_detection_lpd_yunet_2023mar.onnx" : "https://drive.google.com/file/d/19geq1lNXMbZTvU_Glc5weUOGDyiBFDrh/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/LPD_YuNet/Models/license_plate_detection_lpd_yunet_2023mar_int8.onnx" : "https://drive.google.com/file/d/1rTwGwstPjpDDidbaGT-gaTmK0InxMvuu/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/UnderstandAI/weights_face_v1.0.0.pb" : "https://drive.google.com/file/d/19vZl38IYmhaAzxYTxgVFXk2PFObP6ZP6/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/UnderstandAI/weights_plate_v1.0.0.pb" : "https://drive.google.com/file/d/1u5MrRCgKPC3Zxs3g9YIb1NOp2dIfNBPs/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/WpodNet/wpod-net.h5" : "https://drive.google.com/file/d/1vHEiUXj0blxGzQ0UX82p-ZF2zm3ZLscL/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/WpodNet/wpod-net.json" : "https://drive.google.com/file/d/1V7IfFHN_zNFW_6XX8832fwCjOFSz1CsI/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/YuNet/Models/face_detection_yunet_2023mar.onnx" : "https://drive.google.com/file/d/10yAbTx0aC-pltHBP7eNfdYQprOqiENRT/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Trackers/DeepSort/resources/networks/mars-small128.pb": "https://drive.google.com/file/d/1chZpMkH5Ih6wfdu_NjsQ62rXFesOcwvb/view?usp=sharing"
-    }
-
-zippedFoldersDownloadDict = {
-    "System/NonPythonFiles/WorkersFiles/ContentGenerators/PlatesMania/PlatesImages" : "https://drive.google.com/file/d/1dwP2ZXwR8pv7ykQ0WD2X99W2eUSlLHQ8/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/ContentGenerators/ThisPersonDoesNotExist/FacesDownloaded" : "https://drive.google.com/file/d/1UgBlTtwb2oYyw8SwWCK19RhzHWPWXqV0/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/ContentRecognizer/EasyOCR/data/ocr" : "https://drive.google.com/file/d/1wjLGJ6VNyGlwM-WOLH1ScCdQYBNxGkTg/view?usp=sharing",
-    "System/NonPythonFiles/WorkersFiles/Detectors/Dnn/Models" : "https://drive.google.com/file/d/1EtrCzb3pFHty0PhQYLpfrIFylgdClPqB/view?usp=sharing"
-}
 
 outputBaseDir = Path(__file__).parent.parent.parent
 
 
+class TempPath_Cls():
 
-class GoogleDriveDownload_Cls():
+    def __init__(self):
+        self._path = self._getNonExistingPath()
     
-    def __init__(self, overwrite=False):
-        self._overwrite_flag = bool(overwrite)
+    def __enter__(self):
+        if self._path.exists():
+            raise FileExistsError("The following path exists: " + str(self._path))
+        
+        return self._path
     
-    
-    def downloadFile(self, url, destPath, noPrint = False):
-        """
-        Creates directory when missing
-        """
-        destPath = Path(destPath)
+    def __exit__(self, exc_type, exc_value, exc_tb):
         
-        if not destPath.parent.exists():
-            raise NotADirectoryError("The following directory does not exist: \"" + str(destPath.parent) + "\"")
-        
-        else:
-            if destPath.exists() and not self._overwrite_flag:
-                if not noPrint:
-                    print("Skipping download of: \"" + str(destPath) + "\" - File exists already")
-                return
-            
-            else:
-                if not noPrint:
-                    print("Downloading: \"" + str(destPath) + "\"", end = "", flush=True)
-                
-                cnt = 5
-                
-                while cnt:
-                    try:
-                        gdown.download(url, str(destPath), quiet=True,fuzzy=True)
-                        if destPath.exists():
-                            break
-                    except:
-                        pass
-                    
-                    time.sleep(0.25)
-                    print("Reattempting download...")
-                    cnt-=1
-                
-                if cnt == 0:
-                    raise ConnectionError("Download failure! Cannot download the url: " + str(url))
-                
-                if not noPrint:
-                    print("  -  Done!")
-             
-        
-    def downloadFiles(self, outputBaseDir, downloadDict):
-        """
-        outputBaseDir  -  base directory for relative paths used in downloadDir
-        downloadDict   -  {relative file path : url}
-        
-        Download files from google drive into specific locations
-        """
-        
-        outputBaseDir = Path(outputBaseDir)
-        
-        if not outputBaseDir.exists():
-            raise NotADirectoryError("The following directory does not exist: \"" + str(outputBaseDir) + "\"")
-        
-        
-        for destRelPath, url in downloadDict.items():
-            destPath = outputBaseDir / destRelPath
-        
-            if not destPath.parent.exists():
-                os.makedirs(str(destPath.parent))
-            
-            self.downloadFile(url, destPath)
-    
-    
+        if self._path.exists():
+            if self._path.is_file():
+                os.remove(str(self._path))
+            elif self._path.is_dir():
+                shutil.rmtree(str(self._path))
+
+
     def _getNonExistingPath(self):
         
         directory_ = Path(__file__).parent
-        name_candidate_int = 0
+        name_candidate_cnt = 0
+        name_candidate_cnt_limit = 10000
         
         path_ = None
         
         while not path_ or path_.exists():
-            path_ = directory_ / (str(name_candidate_int) + ".zip")
-            name_candidate_int += 1
+            path_ = directory_ / (str(name_candidate_cnt))
+            name_candidate_cnt += 1
+            if name_candidate_cnt > name_candidate_cnt_limit:
+                raise IndexError("Cannot find non existing path")
         
         return path_
-            
+
+
+
+
+class ExternalFileInfo_AbstCls(Base_AbstCls):
     
-    def downloadZippedFolder(self, url, destPath):
+    @abstractmethod
+    def download(self, targerFilePath):
+        pass
+    
+
+
+class GoogleDriveFile_Cls(ExternalFileInfo_AbstCls):
+    
+    def __init__(self, fileId):
+        self.fileId = fileId
+    
+    
+    def download(self, targetFilePath):
         
-        if destPath.exists() and not self._overwrite_flag:
-            print("Skipping download zipped folder of: \"" + str(destPath) + "\" - Directory exists already")
-            return
+        return self._download_file_from_google_drive(self.fileId, targetFilePath)
+    
+    
+    def _download_file_from_google_drive(self, fileID, destination):
         
+        URL = "https://docs.google.com/uc?export=download&confirm=1"
+    
+        session = requests.Session()
+        try:
+            response = session.get(URL, params={"id": fileID}, stream=True)
+        except:
+            print("Cannot download from Google Drive file with id: " + str(fileID))
+            return False
+        
+        token = self._get_confirm_token(response)
+    
+        if token:
+            params = {"id": fileID, "confirm": token}
+            response = session.get(URL, params=params, stream=True)
+    
+        self._save_response_content(response, destination)
+        
+        return True
+    
+    
+    def _get_confirm_token(self, response):
+        
+        for key, value in response.cookies.items():
+            if key.startswith("download_warning"):
+                return value
+    
+        return None
+    
+    
+    def _save_response_content(self, response, destination):
+        
+        CHUNK_SIZE = 32768
+    
+        with open(destination, "wb") as f:
+            for chunk in response.iter_content(CHUNK_SIZE):
+                if chunk:  # filter out keep-alive new chunks
+                    f.write(chunk)
+
+
+
+class PartDownload_AbstCls(Base_AbstCls):
+    
+    def __init__(self, artifactName, externalFilesInfo_list, fileHash):
+        
+        assert all([isinstance(el, ExternalFileInfo_AbstCls) for el in externalFilesInfo_list])
+        
+        self.externalFilesInfo_list = externalFilesInfo_list
+        self.artifactName = artifactName
+        self.fileHash_expected = fileHash if isinstance(fileHash, str) else None
+    
+    
+    @abstractmethod
+    def isAlreadyDownloaded(self):
+        pass
+    
+    
+    @final
+    def download(self):
+        
+        if self.isAlreadyDownloaded():
+            print("Skipping download: \"" + self.artifactName + "\"  ->  Already downloaded!")
         else:
-        
-            print("Downloading zipped folder: \"" + str(destPath) + "\"", end = "", flush=True)
+            print("Downloading:  \"" + self.artifactName + "\" ", end = "", flush = True)
             
-            with ZipTempFile_Cls(self._getNonExistingPath()) as zipTempFile_path:
-                self.downloadFile(url, zipTempFile_path, noPrint = True)
-                
-                os.makedirs(str(destPath))
-                
-                with zipfile.ZipFile(str(zipTempFile_path), 'r') as z:
-                    z.extractall(str(destPath))
-                    
-            print("  -  Done!")
-
-    
-    def downloadZippedFolders(self, outputBaseDir, downloadDict):
-        """
-        outputBaseDir  -  base directory for relative paths used in downloadDir
-        downloadDict   -  {relative file path : url}
-        
-        Download files from google drive into specific locations
-        """
-        
-        outputBaseDir = Path(outputBaseDir)
-        
-        if not outputBaseDir.exists():
-            raise NotADirectoryError("The following directory does not exist: " + str(outputBaseDir))
-        
-        
-        for destRelPath, url in downloadDict.items():
-            destPath = outputBaseDir / destRelPath
-        
-            if not destPath.parent.exists():
-                os.makedirs(str(destPath.parent))
+            ret = False
             
-            self.downloadZippedFolder(url, destPath)
+            with TempPath_Cls() as tempPath:
+                
+                for efi in self.externalFilesInfo_list:
+                    ret = efi.download(tempPath)
+            
+                    if ret:
+                        hashCalculated = self.calculateFileHash(tempPath)
+                        
+                        if self.fileHash_expected is not None:
+                            if hashCalculated == self.fileHash_expected:
+                                pass
+                            else:
+                                print("\nHash mismatch! expected: " + str(self.fileHash_expected) + ", downloaded: " + hashCalculated)
+                                continue
+                        else:
+                            print(" Hash: " + hashCalculated , end = "", flush = True)
+                            
+                        ret = self._pasteIntoTheProject(tempPath)
+                        
+                        if ret:
+                            print(" - Done")
+                            break
+            
+            if not ret:
+                print(" - Failed")
+            
+            return ret
     
-
-
-class ZipTempFile_Cls():
-
-    def __init__(self, filePath):
-        self._filePath = Path(filePath)
     
-    def __enter__(self):
-        if self._filePath.exists():
-            raise FileExistsError("The following path exists: " + str(self._filePath))
+    def calculateFileHash(self, filePath):
         
-        return self._filePath
+        m = hashlib.md5()
+        
+        with open(str(filePath), 'rb') as file_:
+            while True:
+                data = file_.read(8192)
+                if not data:
+                    break
+                m.update(data)
+                
+            hash_value = m.hexdigest()
+        
+        return hash_value
     
-    def __exit__(self, exc_type, exc_value, exc_tb):
-        os.remove(str(self._filePath))
+    
+    def _copy(self, src, dest):
+        
+        if not dest.parent.exists():
+            os.makedirs(dest.parent)
+            
+        return shutil.copy2(src, dest)
+
+    
+    def _getFileAbsPath(self, relPathInProject):
+        return outputBaseDir / relPathInProject
+    
+    
+    @abstractmethod
+    def _pasteIntoTheProject(self, filePath):
+        pass
+
+
+
+
+class PartDownload_File_Cls(PartDownload_AbstCls):
+    
+    def __init__(self, artifactName, targetPath_singleOrList, externalFilesInfo_list, fileHash = None):
+        
+        PartDownload_AbstCls.__init__(self, artifactName, externalFilesInfo_list, fileHash)
+        
+        if isinstance(targetPath_singleOrList, str):
+            targetPath_singleOrList = [targetPath_singleOrList]
+            
+        self.targetPaths_list = [self._getFileAbsPath(relPathInProject) for relPathInProject in targetPath_singleOrList]
+
+
+    def isAlreadyDownloaded(self):
+        return all([path_.exists() for path_ in self.targetPaths_list])
+
+
+    def _pasteIntoTheProject(self, tempPath):
+        for targetPath in self.targetPaths_list:
+            if not targetPath.exists():
+                if not self._copy(tempPath, targetPath):
+                    return False
+        return True
+
+
+
+class PartDownload_ZipedFolder_Cls(PartDownload_File_Cls):
+    
+    def _pasteIntoTheProject(self, tempPath):
+        
+        for targetPath in self.targetPaths_list:
+            if not targetPath.exists():
+                os.makedirs(str(targetPath))
+                
+                with zipfile.ZipFile(str(tempPath), 'r') as zfile:
+                    zfile.extractall(str(targetPath))
+            
+            backupTargetFilePath = targetPath.with_suffix(".zip.bak")
+            
+            if not backupTargetFilePath.exists():
+                self._copy(tempPath, backupTargetFilePath)
+            
+                
+        return True
+
+
+
+class PartDownload_ZipedArtifacts_Cls(PartDownload_File_Cls):
+    
+    def __init__(self, artifactName, zipFile_2_targetMapping_dict, externalFilesInfo_list, fileHash = None):
+        
+        PartDownload_AbstCls.__init__(self, artifactName, externalFilesInfo_list, fileHash)
+        self.zipFile_2_targetMapping_dict = zipFile_2_targetMapping_dict
+
+
+    def isAlreadyDownloaded(self):
+        return all([self._getFileAbsPath(destPath).exists() for destPath in self.zipFile_2_targetMapping_dict])
+            
+    
+    def _pasteIntoTheProject(self, tempPath):
+        
+        with TempPath_Cls() as unpackedDownloadFilePath:
+            
+            with zipfile.ZipFile(str(tempPath), 'r') as zfile:
+                zfile.extractall(str(unpackedDownloadFilePath))
+            
+            for destPath, srcPath in self.zipFile_2_targetMapping_dict.items():
+                
+                srcPath = unpackedDownloadFilePath / srcPath 
+                destPath = self._getFileAbsPath(destPath)
+                
+                if not destPath.exists():
+                    self._copy(srcPath, destPath)
+            
+            
+        return True
+
+
+
+
+class DownloadSession_Cls():
+    
+    def __init__(self, downloadParts_list):
+        
+        assert all([isinstance(el, PartDownload_AbstCls) for el in downloadParts_list])
+        self.downloadParts_list = list(downloadParts_list)
+    
+
+    def download(self):
+        
+        partsDownloaded_list = []
+        partsFailedToDownload_list = []
+        
+        for part in self.downloadParts_list:
+            if part.download():
+                partsDownloaded_list.append(part)
+            else:
+                partsFailedToDownload_list.append(part)
+
+
+
+
+
+downloadSession = DownloadSession_Cls([
+        PartDownload_File_Cls(
+            "UnderstandAI - Face detector model", 
+            "System/NonPythonFiles/WorkersFiles/Detectors/UnderstandAI/weights_face_v1.0.0.pb", 
+            [
+                GoogleDriveFile_Cls("1CwChAYxJo3mON6rcvXsl82FMSKj82vxF"),
+                GoogleDriveFile_Cls("19vZl38IYmhaAzxYTxgVFXk2PFObP6ZP6")
+            ],
+            "16277fcb860e6682a73b3b8fa3d251c3"
+            
+        ),
+        PartDownload_File_Cls(
+            "UnderstandAI - License plate model", 
+            "System/NonPythonFiles/WorkersFiles/Detectors/UnderstandAI/weights_plate_v1.0.0.pb", 
+            [
+                GoogleDriveFile_Cls("1Fls9FYlQdRlLAtw-GVS_ie1oQUYmci9g"),
+                GoogleDriveFile_Cls("1u5MrRCgKPC3Zxs3g9YIb1NOp2dIfNBPs")
+            ],
+            "b170be93e808e70390829606da4fa067"
+        ),
+        PartDownload_File_Cls(
+            "Dlib face keypoints predictor model", 
+            [
+                "System/NonPythonFiles/WorkersFiles/ContentSwappers/DlibBasedSwapper/models/shape_predictor_68_face_landmarks.dat",
+                "System/NonPythonFiles/WorkersFiles/ContentSwappers/MKFaceSwapper/predictor/shape_predictor_68_face_landmarks.dat",
+                "System/NonPythonFiles/WorkersFiles/ContentSwappers/WuHukaiFaceSwapper/models/shape_predictor_68_face_landmarks.dat"
+            ], 
+            [
+                GoogleDriveFile_Cls("1NyuYzWWaDLLik9GiT62lRINYtuFuAmT6")
+            ],
+            "73fde5e05226548677a050913eed4e04"
+            
+        ),
+        
+        
+        PartDownload_ZipedArtifacts_Cls(
+            "Other models and files",
+            {
+                "System/NonPythonFiles/WorkersFiles/Anonymizers/AgentSmit/AgentSmith.jpeg": "AgentSmith.jpeg",
+                "System/NonPythonFiles/WorkersFiles/ContentGenerators/ExampleProvider/Face/Face_example.jpeg" : "Face_example.jpeg",
+                "System/NonPythonFiles/WorkersFiles/ContentGenerators/ExampleProvider/Plate/Plate_example.png" : "Plate_example.png",
+                "System/NonPythonFiles/WorkersFiles/ContentRecognizer/EasyOCR/darknet/libdarknet.so" : "libdarknet.so",
+                "System/NonPythonFiles/WorkersFiles/ContentSwappers/MKFaceSwapper/model/candide.npz" : "candide.npz",
+                "System/NonPythonFiles/WorkersFiles/Detectors/DlibCNN/Model/mmod_human_face_detector.dat" : "mmod_human_face_detector.dat",
+                
+                "System/NonPythonFiles/WorkersFiles/Detectors/Haar/configuration/haarcascade_frontalface2.xml" : "haarcascade_frontalface2.xml",
+                "System/NonPythonFiles/WorkersFiles/Detectors/LPD_YuNet/Models/license_plate_detection_lpd_yunet_2023mar.onnx" : "license_plate_detection_lpd_yunet_2023mar.onnx",
+                "System/NonPythonFiles/WorkersFiles/Detectors/LPD_YuNet/Models/license_plate_detection_lpd_yunet_2023mar_int8.onnx" : "license_plate_detection_lpd_yunet_2023mar_int8.onnx",
+                "System/NonPythonFiles/WorkersFiles/Detectors/WpodNet/wpod-net.h5" : "wpod-net.h5",
+                "System/NonPythonFiles/WorkersFiles/Detectors/WpodNet/wpod-net.json" : "wpod-net.json",
+                "System/NonPythonFiles/WorkersFiles/Detectors/YuNet/Models/face_detection_yunet_2023mar.onnx" : "face_detection_yunet_2023mar.onnx",
+                "System/NonPythonFiles/WorkersFiles/Trackers/DeepSort/resources/networks/mars-small128.pb" : "mars-small128.pb"
+            },
+            [
+                GoogleDriveFile_Cls("1oCNedTP-cP8oirYdmQ-ssgNsbxfSofWP")
+            ],
+            "1f8e4fe7f71545913b4a62a1cbe7d34f"
+        ),
+                                        
+        
+        
+        PartDownload_ZipedFolder_Cls(
+            "License plates images", 
+            "System/NonPythonFiles/WorkersFiles/ContentGenerators/PlatesMania/PlatesImages",
+            [
+                GoogleDriveFile_Cls("1dwP2ZXwR8pv7ykQ0WD2X99W2eUSlLHQ8")
+            ],
+            "caac87812598345794df2b6b175449f3"
+        ),
+        PartDownload_ZipedFolder_Cls(
+            "ThisPersonDoesNotExist faces images", 
+            "System/NonPythonFiles/WorkersFiles/ContentGenerators/ThisPersonDoesNotExist/FacesDownloaded", 
+            [
+                GoogleDriveFile_Cls("1UgBlTtwb2oYyw8SwWCK19RhzHWPWXqV0")
+            ],
+            "a5cc780b9d9dd3f37ecb479ef4076d3a"
+        ),
+        PartDownload_ZipedFolder_Cls(
+            "EasyOCR models", 
+            "System/NonPythonFiles/WorkersFiles/ContentRecognizer/EasyOCR/data/ocr", 
+            [
+                GoogleDriveFile_Cls("1wjLGJ6VNyGlwM-WOLH1ScCdQYBNxGkTg")
+            ],
+            "27d348d643d4bc6c83ff185002e07648"
+        ),
+        PartDownload_ZipedFolder_Cls(
+            "Dnn models", 
+            "System/NonPythonFiles/WorkersFiles/Detectors/Dnn/Models", 
+            [
+                GoogleDriveFile_Cls("1EtrCzb3pFHty0PhQYLpfrIFylgdClPqB")
+            ],
+            "d55be9eca8ea63392bf2fb7cd5ffe361"
+        ),
+    ])
+
 
 
 
 
 if __name__ == "__main__":
-
-
-    argsParser = argparse.ArgumentParser("The interface to perform downloading of large files")
-
-    argsParser.add_argument(
-        "-overwrite",
-        default=False,
-        action="store_true",
-        help="Overwrite existing files and folders" 
-        )
-    
-    args = argsParser.parse_args()
-    
-
-    gdd = GoogleDriveDownload_Cls(overwrite = args.overwrite)
-    
-    gdd.downloadFiles(outputBaseDir, filesDownloadDict)
-    gdd.downloadZippedFolders(outputBaseDir, zippedFoldersDownloadDict)
-
-
-
-
+    downloadSession.download()
 
 
 

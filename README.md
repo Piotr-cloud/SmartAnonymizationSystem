@@ -7,7 +7,7 @@ Smart Anonymization System performs customized anonymization of videos and image
 <img src="_README/SA_Sequence.png"/>
 <br/>
 
-Each step of the above sequence is implemented by a solution, so-called "Worker". Configuration of solutions used is done during runtime of the system. To see a list of built-in solutions, see chapter [Build-in solutions](#built-in-solutions). System allows integrating new solution and measure performance of execution resources cost. 
+Each step of the above sequence is implemented by a solution, so-called "Worker". Configuration of solutions used is done during runtime of the system. To see a list of built-in solutions, see chapter [Build-in solutions](#built-in-solutions). System allows integration of new solution and measurement its performance in terms of execution resources cost. 
 
 Example of anonymized license plates in video:
 

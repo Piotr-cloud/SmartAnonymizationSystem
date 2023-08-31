@@ -66,7 +66,6 @@ if __name__ == "__main__":
     from NonPythonFiles.WorkersFiles.ContentSwappers.WuHukaiFaceSwapper import *
     from NonPythonFiles.WorkersFiles.Detectors.Haar import *
     from NonPythonFiles.WorkersFiles.Detectors.Dnn import *
-    from NonPythonFiles.WorkersFiles.Detectors.Lpd_ThorPham import *
     from NonPythonFiles.WorkersFiles.Trackers.DeepSort import *
     
     
