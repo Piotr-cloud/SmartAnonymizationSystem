@@ -43,17 +43,6 @@ class StepsLogs_Cls():
         
         for subStep in step.getSubSteps():
             yield from self._iterStep(subStep)
-                                       
-        
-    def addStepTimeConsumption_notInUse(self, stepName, stepDuration):
-        
-        if stepName not in self.stepDuration_dict:
-            self.stepDuration_dict[stepName] = [stepDuration, 1] # total duration, number of steps repetitions executed
-            self.stepsAdditionOrder_list.append(stepName)
-        
-        else:
-            self.stepDuration_dict[stepName][0] += stepDuration
-            self.stepDuration_dict[stepName][1] += 1
     
     
     def addProcessingParam(self, paramName, processedUnitsQuantity):
@@ -256,7 +245,6 @@ class StepsLogs_Cls():
             output_lines_list.extend(params_parts)
             if output_lines_list[-1] != "":
                 output_lines_list.append("")
-                #output_lines_list.append("params_parts")
             # add new line
         
         prev_substepIsToBeGrouped_flag = True
@@ -271,7 +259,6 @@ class StepsLogs_Cls():
                 if not anySubStepAdded_flag:
                     if output_lines_list[-1] != "":
                         output_lines_list.append("")
-                        #output_lines_list.append("anySubStep")
                     anySubStepAdded_flag = True
                 
                 substepIsToBeGrouped_flag = len(subStepLines_list) <= 1
@@ -279,7 +266,6 @@ class StepsLogs_Cls():
                 if not prev_substepIsToBeGrouped_flag or not substepIsToBeGrouped_flag:
                     if output_lines_list[-1] != "":
                         output_lines_list.append("")
-                        #output_lines_list.append("prev_substep")
                     
                 output_lines_list.extend(subStepLines_list)
                 
@@ -288,55 +274,8 @@ class StepsLogs_Cls():
         if len(output_lines_list) > 1:
             if output_lines_list[-1] != "":
                 output_lines_list.append("")
-                #output_lines_list.append("leaving more lines")
             
         return output_lines_list
-        
-    
-    def _getTimeConsumptionStatementString_notInUse(self):
-        
-        if self.stepsAdditionOrder_list:
-            # time consumption
-            output_string = "Time consumption: \n"
-            
-            stringComponentsArray = []
-            longestElements_list = None
-            
-            for stepName in self.stepsAdditionOrder_list:
-                stepDuration, stepRepetitions = self.stepDuration_dict[stepName]
-                
-                row_data = [stepName + ":", "    total: ", " {:.3f} s".format(stepDuration), "  /  ", str(stepRepetitions), "  =  ", "{:.3f} ms".format((stepDuration * 1000) / stepRepetitions)]
-                
-                if longestElements_list is None:
-                    longestElements_list = [len(element) for element in row_data]
-                else:
-                    for index in range(len(row_data)):
-                        rowElement_length = len(row_data[index]) 
-                        
-                        if rowElement_length > longestElements_list[index]:
-                            longestElements_list[index] = rowElement_length
-                
-                stringComponentsArray.append(row_data)
-            
-            
-            for row_data in stringComponentsArray:
-                output_string += "\n  "
-
-                for elementIndex in range(len(row_data)):
-                    
-                    longestElement = longestElements_list[elementIndex]
-                    
-                    if elementIndex in [2,4,6]:
-                        output_string += row_data[elementIndex].rjust(longestElement)
-                    
-                    else:
-                        output_string += row_data[elementIndex].ljust(longestElement)
-                        
-        
-        else:
-            output_string = "  -> No time consumption data"
-        
-        return output_string
     
     
     def _getTimeConsumptionTreeStringLines(self):

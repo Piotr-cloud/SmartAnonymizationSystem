@@ -102,18 +102,6 @@ class _Node_Cls(object):
         return random.choices(population = values, weights = weights, k = 1)[0]
     
     
-    def _popRandomSubLeaf_notInUse(self):
-        
-        if self._workData_nodesSize_dict:
-            
-            subLeafSign = self._chooseOne_Weighted(self._workData_nodesSize_dict)
-            
-            return self._subNodes_dict[subLeafSign]._popRandomLeaf()
-        
-        else:
-            return None
-    
-    
     def _popRandomLeaf(self):
         
         choices_dict = {}

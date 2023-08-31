@@ -32,11 +32,6 @@ class Frame_Cls(Array_AbstCls, FrameHolder_AbstCls):
     
     def getIndex(self):
         return self._frameNumber
-
-
-    def copy_notInUse(self): # Copy cannot be used since it will overwrite HD storage file
-            
-        return Frame_Cls(self._array.copy(), self._videoRelated, self._frameNumber)
     
 
 

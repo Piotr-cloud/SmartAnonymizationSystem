@@ -109,8 +109,6 @@ class Video_AbstCls(FrameHolder_AbstCls):
         
         self.prepareDir(str(filePath.parent))
         
-        #filePath = self._formatPathExtension(filePath)
-        
         fourcc = Video_AbstCls._codec
         
         outFile = cv2.VideoWriter(str(filePath), fourcc, self.fps, (self.frameWidth, self.frameHeight))
@@ -119,28 +117,6 @@ class Video_AbstCls(FrameHolder_AbstCls):
             outFile.write(frame.getNpArrayCopy())
         
         outFile.release()
-    
-    
-    def _setWorkDir_notInUse(self):
-        
-        videoFolderName_candidate = self.getName()
-        
-        workDir_candidate = (self.HD_storageDir / self.classFolderName) /videoFolderName_candidate
-        
-        if workDir_candidate.exists():
-            
-            workDir_candidate_original = workDir_candidate
-            
-            cnt = 1
-            
-            while workDir_candidate.exists():
-                
-                workDir_candidate = Path(str(workDir_candidate_original) + "_" + str(cnt))
-                cnt += 1
-        
-        self.workDir = workDir_candidate
-        
-        self.prepareDir(self.workDir)
 
 
 

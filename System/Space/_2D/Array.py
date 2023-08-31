@@ -257,8 +257,8 @@ class Array_AbstCls(Base_AbstCls):
             return nparray
 
 
-    def copy_notInUse(self):
-        return type(self)(self._array.copy())
+    def copy_notInUse(self): # self.copy() implemented as: 'return type(self)(self._array.copy())' cannot be used since it will overwrite HD original HD storage file
+        raise RuntimeError()
         
 
     def write(self, filePath, createDir = False):
