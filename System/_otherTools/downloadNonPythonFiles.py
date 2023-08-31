@@ -12,6 +12,7 @@ from PolymorphicBases.ABC import abstractmethod, final, Base_AbstCls
 import hashlib
 import shutil
 import zipfile
+import time
 
 
 outputBaseDir = Path(__file__).parent.parent.parent
@@ -66,11 +67,26 @@ class ExternalFileInfo_AbstCls(Base_AbstCls):
 
 class GoogleDriveFile_Cls(ExternalFileInfo_AbstCls):
     
+    retrydelay_ms = 2000
+    
     def __init__(self, fileId):
         self.fileId = fileId
+        self._lastDownloadTryTimestamp = None
     
     
     def download(self, targetFilePath):
+        
+        if self._lastDownloadTryTimestamp is not None:
+            delayLeft_s = self._lastDownloadTryTimestamp + (GoogleDriveFile_Cls.retrydelay_ms / 1000) - time.time()
+            if delayLeft_s > 0:
+                if delayLeft_s > 10:
+                    delayLeft_s = 10
+                if delayLeft_s > 1:
+                    print("\n -> Google drive download retry delay: {:.3f} s <-".format(delayLeft_s), flush = True)
+                    
+                time.sleep(delayLeft_s)
+        
+        self._lastDownloadTryTimestamp = time.time()
         
         return self._download_file_from_google_drive(self.fileId, targetFilePath)
     
@@ -78,12 +94,12 @@ class GoogleDriveFile_Cls(ExternalFileInfo_AbstCls):
     def _download_file_from_google_drive(self, fileID, destination):
         
         URL = "https://docs.google.com/uc?export=download&confirm=1"
-    
         session = requests.Session()
+        
         try:
             response = session.get(URL, params={"id": fileID}, stream=True)
         except:
-            print("Cannot download from Google Drive file with id: " + str(fileID))
+            print("Cannot download from Google Drive file with id: " + str(fileID), flush = True)
             return False
         
         token = self._get_confirm_token(response)
@@ -137,7 +153,9 @@ class PartDownload_AbstCls(Base_AbstCls):
     def download(self):
         
         if self.isAlreadyDownloaded():
-            print("Skipping download: \"" + self.artifactName + "\"  ->  Already downloaded!")
+            print("Skipping download: \"" + self.artifactName + "\"  ->  Already downloaded!", flush = True)
+            return True
+        
         else:
             print("Downloading:  \"" + self.artifactName + "\" ", end = "", flush = True)
             
@@ -152,10 +170,15 @@ class PartDownload_AbstCls(Base_AbstCls):
                         hashCalculated = self.calculateFileHash(tempPath)
                         
                         if self.fileHash_expected is not None:
-                            if hashCalculated == self.fileHash_expected:
-                                pass
-                            else:
-                                print("\nHash mismatch! expected: " + str(self.fileHash_expected) + ", downloaded: " + hashCalculated)
+                            if hashCalculated != self.fileHash_expected:
+                                print("\nHash mismatch! expected: " + str(self.fileHash_expected) + ", downloaded: " + hashCalculated, flush = True)
+                                
+                                ret = False
+                                
+                                if hashCalculated == "7869797f40804a2de10a7d1e8cb32177":
+                                    print("Warning! It probably failed due to download automation protection by Google Drive server. Try again later...")
+                                    break
+                                    
                                 continue
                         else:
                             print(" Hash: " + hashCalculated , end = "", flush = True)
@@ -163,11 +186,11 @@ class PartDownload_AbstCls(Base_AbstCls):
                         ret = self._pasteIntoTheProject(tempPath)
                         
                         if ret:
-                            print(" - Done")
+                            print(" - Done", flush = True)
                             break
             
             if not ret:
-                print(" - Failed")
+                print(" - Failed", flush = True)
             
             return ret
     
@@ -288,22 +311,42 @@ class PartDownload_ZipedArtifacts_Cls(PartDownload_File_Cls):
 
 class DownloadSession_Cls():
     
+    downloadRetries = 8
+    
     def __init__(self, downloadParts_list):
         
         assert all([isinstance(el, PartDownload_AbstCls) for el in downloadParts_list])
         self.downloadParts_list = list(downloadParts_list)
     
-
-    def download(self):
+    
+    def _downloadParts(self, parts_list, recursionCountdown = downloadRetries):
         
         partsDownloaded_list = []
         partsFailedToDownload_list = []
         
-        for part in self.downloadParts_list:
-            if part.download():
+        for part in parts_list:
+            
+            downloadResult = part.download() 
+            if downloadResult:
                 partsDownloaded_list.append(part)
             else:
                 partsFailedToDownload_list.append(part)
+        
+        if partsFailedToDownload_list:
+            if recursionCountdown > 0:
+                
+                print("\nThere are failed downloads. Retrying [{}/{}]...\n".format((DownloadSession_Cls.downloadRetries -recursionCountdown) + 1, DownloadSession_Cls.downloadRetries))
+                
+                return self._downloadParts(partsFailedToDownload_list, recursionCountdown - 1)
+            else:
+                return False
+        
+        return True
+
+
+    def download(self):
+        
+        return self._downloadParts(self.downloadParts_list)
 
 
 
@@ -409,8 +452,10 @@ downloadSession = DownloadSession_Cls([
 
 
 if __name__ == "__main__":
-    downloadSession.download()
-
+    ret = downloadSession.download()
+    
+    if not ret:
+        exit(1)
 
 
 

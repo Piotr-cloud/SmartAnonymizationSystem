@@ -2,6 +2,16 @@
 
 processingUnit=$1
 
+function runInstallScript(){
+	
+	scriptName=$1
+	useVirtualEnv=$2
+	dedicatedFolder=$3
+	
+	./subscripts/_installWrapper.sh  $processingUnit  $scriptName $useVirtualEnv $dedicatedFolder || exit $?
+}
+
+
 if ! [[ "$processingUnit" =~ ^(GPU|CPU)$ ]]; then echo "Wrong processing unit !!"; exit 1; fi
 
 
@@ -22,16 +32,6 @@ sudo apt-get update
 echo "#------------------------------#"
 echo "|  \"sudo apt-get update\" - DONE"
 echo "#------------------------------#"
-
-
-function runInstallScript(){
-	
-	scriptName=$1
-	useVirtualEnv=$2
-	dedicatedFolder=$3
-	
-	./subscripts/_installWrapper.sh  $processingUnit  $scriptName $useVirtualEnv $dedicatedFolder || exit $?
-}
 
 
 
