@@ -35,10 +35,10 @@ class DlibBasedSwapper_Cls(FaceSmartSwapper_AbstCls):
                  
                  additionalSurroundings_perc = UserCfg_Int_Limited(
                      name = "Additional context of area [%]",
-                     description = "Detection area is enhanced by provided value to give more context to the swapper",
+                     description = "Detection area is enhanced by provided value to give more context to the swapper. Results are highly sensitive",
                      lower_limit = 0,
-                     defaultValue = 10,
-                     upper_limit = 50), # TODO: delete this
+                     defaultValue = 0,
+                     upper_limit = 50),
                  
                  keyPointsLimit = UserCfg_Int_Limited(
                      name = "Keypoints number limit",

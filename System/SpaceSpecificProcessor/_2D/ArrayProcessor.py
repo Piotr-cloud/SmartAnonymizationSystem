@@ -67,7 +67,7 @@ class ArraySpecificProcessor_Cls(object):
                 (maskBoundingBox[0] + int(maskBoundingBox[2] / 2), 
                  maskBoundingBox[1] + int(maskBoundingBox[3] / 2)
                  )
-                ) # TODO: is it correct ?? 
+                ) # is it correct ?? 
             
             final_array = cv2.seamlessClone(srcArray, destArray, maskArray, center, cv2.NORMAL_CLONE)
 
@@ -209,6 +209,7 @@ class ArraySpecificProcessor_Cls(object):
         """
         not-in-place operation
         """
+        assert isinstance(destDetectionView, View_Cls)
         
         array = destDetectionView.getNpArrayCopy()
         region = destDetectionView.getDetection().getShape()
@@ -392,14 +393,6 @@ class ArraySpecificProcessor_Cls(object):
         
         finalArray = self.replaceSingleRegion(destArray, newViewArray, replacementMask, seamlessClone)
         
-# TODO: remove debug stuff        
-#         viewer.saveWithID(destArray, id_ = "destArray")
-#         viewer.saveWithID(replacementMask.getNpArrayCopy(), id_ = "ReplacementMask")
-#         viewer.saveWithID(newContent_rectangle, id_ = "newContent_rectangle")
-#         viewer.saveWithID(newViewArray, id_ = "newViewArray")
-#         viewer.saveWithID(newContent, id_ = "newContent")
-#         viewer.saveWithID(finalArray, id_ = "finalArray")
-        
         return finalArray
 
 
@@ -407,39 +400,6 @@ class ArraySpecificProcessor_Cls(object):
         return cv2.flip(array, 0)
     
     
-
-
-
-# TODO: remove debug stuff      
-# if __name__ == "__main__":
-#
-#     from Detections.Detection import Tetragon_Cls
-#
-#     imageFilePath = r"/home/piotr/ProjektMagisterski/BazaDanych/Images/Other/XxY.jpeg"
-#     newViewSaveFileDir = r"/home/piotr/ProjektMagisterski/_Outputs/PartsTesting"
-#     newViewSaveFileBaseName = r"View_3"
-#
-#     vertexesAbsoluteCoords = [[1381,713], [3615,846], [3414,2577], [737,2079]]
-#
-#     image = cv2.imread(imageFilePath)
-#
-#     asp = ArraySpecificProcessor_Cls()
-#
-#     image_h, image_w = image.shape[:2]
-#
-#     vertexes = [ Point_Cls(vertexAbsoluteCoords[0] / image_w, 
-#                            vertexAbsoluteCoords[1] / image_h) 
-#                            for vertexAbsoluteCoords in vertexesAbsoluteCoords ]
-#
-#     detection = Tetragon_Cls(0, vertexes)
-#
-#
-#     newView = asp.getDetectionViewAsRectangleArray(View_Cls(image, detection))
-#
-#     newView = asp.flip(newView)
-#
-#     newImage = asp.pasteNewContentIntoDestDetectionView(View_Cls(image, detection), newView, True)
-
 
 
 

@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 import cv2
 import numpy as np
-import scipy.spatial as spatial #TODO - warning printed here
+import scipy.spatial as spatial
 import logging
 
 #from _debug import *

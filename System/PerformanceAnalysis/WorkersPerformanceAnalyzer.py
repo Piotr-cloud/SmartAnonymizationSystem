@@ -121,7 +121,6 @@ class WorkersPerformanceAnalysisData_Cls():
         
         output_list = []
         
-        #self.dumpToFile(r"/home/piotr/ProjektMagisterski/Drafts/tempDebug/wpad") #TODO: remove
         self.complementMissingGPU_RAM_usageParamsGroups()
         
         workerKeys_sorted = sorted(self._workersPerformanceData_dict)

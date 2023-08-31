@@ -10,6 +10,7 @@ import logging
 from View.View import View_Cls
 from SW_Licensing.SW_License import License_Cls
 from Configuration.ConfigurationObjects.WorkerConfigurationArgument import UserCfg_Int_Limited
+from SpaceSpecificProcessor._2D.ArrayProcessor import ArraySpecificProcessor_Cls
 
 
 class DeepPrivacy_Cls(FaceGenerator_AbstCls):
@@ -51,7 +52,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.""")
     
     def __init__(self,
-                 additionalSurroundings_perc = UserCfg_Int_Limited( # TODO: implement fix - upgrade of performance by preparing image parts with additionalSurroundings_perc
+                 additionalSurroundings_perc = UserCfg_Int_Limited(
                      name = "Additional context of area [%]",
                      description = "Detection area is enhanced to give more context to the swapper",
                      lower_limit = 0,
@@ -65,32 +66,39 @@ SOFTWARE.""")
         from deep_privacy.logger import rootLogger
         
         rootLogger.setLevel(logging.ERROR)
+        
+        self._asp = ArraySpecificProcessor_Cls()
+        self._additionalSurroundings_perc = self.resolveArgument(additionalSurroundings_perc)
         self.generator = build_anonymizer()
     
     
     def _generateMultiple(self, views):
         
-        npArrays = [view.getNpArrayCopy() for view in views]
+        npArraysOfDetectedAreas = []
         
-        assert all([isinstance(npArray, np.ndarray) for npArray in npArrays])
+        for view in views:
+            npArraysOfDetectedAreas.append(self._asp.getDetectionViewAsRectangleArray(view, self._additionalSurroundings_perc, returnNewAbsCoordsToo = False))
+        
+        assert all([isinstance(npArray, np.ndarray) for npArray in npArraysOfDetectedAreas])
             
-        newNpArrays = self.generator.detect_and_anonymize_images(images = npArrays)
+        newNpArraysOfDetectedAreas = self.generator.detect_and_anonymize_images(images = npArraysOfDetectedAreas)
         
-        assert len(newNpArrays) == len(views)
+        assert len(newNpArraysOfDetectedAreas) == len(views)
         
-        newViews = []
+        newViews =[]
         
-        for viewIdx in range(len(views)):
+        for idx, view in enumerate(views):
             
-            view = views[viewIdx]
-            detection = view.getDetection()
+            newViewNpArray = self._asp.pasteNewContentsWithoutSurroundingsIntoRegionWrappingRectangleArea(
+                destDetectionView = view, 
+                newContent_rectangle = newNpArraysOfDetectedAreas[idx], 
+                surroundingsOriginally_perc = self._additionalSurroundings_perc, 
+                seamlessClone = True)
             
-            newNpArray = newNpArrays[viewIdx]
+            newViews.append(View_Cls(newViewNpArray, view.getDetection()))
             
-            newViews.append(View_Cls(newNpArray, detection))
-        
         return newViews
-
+    
     
     def _generate(self, view):
         return self._generateMultiple([view])[0]

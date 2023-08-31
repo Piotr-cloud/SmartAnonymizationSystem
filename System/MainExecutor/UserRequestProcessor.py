@@ -546,7 +546,7 @@ class UserRequestProcessor_Eval_Cls(UserRequestProcessor_WithMainExecutionSequen
         
         additionalProcessingParams_dict["framesSave_dir"] = None # overwriting just in case, others are defaulted
         
-        self._prepareSessionLogging(outputDir, sessionName, True, cleanConsoleLogs = True)
+        self._prepareSessionLogging(outputDir, sessionName, True, cleanConsoleLogs_flag = True)
 
         
         repeatEachWorker_times   =  self._convertArg_intGT_0(repeatEachWorker_times)

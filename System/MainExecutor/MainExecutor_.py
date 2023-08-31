@@ -233,7 +233,7 @@ class MainExecutor_Cls(object):
                     
                 if anonymizer is not None:
                 
-                    with self._progressLogger.newStep(Step_WorkerPreparation_Cls(anonymizer)): # TODO: unified, but restore might be needed: Step_AnonymizerPreparation_Cls(anonymizer)
+                    with self._progressLogger.newStep(Step_WorkerPreparation_Cls(anonymizer)): # "Step_WorkerPreparation_Cls(anonymizer)" is done for unification, but restore might be needed: Step_AnonymizerPreparation_Cls(anonymizer)
                         
                         classesIds = self.anonymizers_dict[anonymizer]
                         
